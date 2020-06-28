@@ -4,6 +4,7 @@ public class StateMachine
 {
     IState currentState;
 
+    //should be used to set the first state when the program starts
     public void SetState(IState state){
         currentState = state;
         currentState.Enter();
