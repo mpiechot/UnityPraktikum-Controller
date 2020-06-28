@@ -25,20 +25,20 @@
 ## Zustände für einen Durchgang
 1. Initialisierung
    1. nächsten Durchgang einlesen
-   2. Objektfarbe bestimmen
-   3. welcher Finger wird stimuliert
-   4. ...
+   2. Objektfarbe bestimmen _(In Variable speichern)_
+   3. welcher Finger wird stimuliert _(In Variable speichern)_
+   4. Lichtreiz bestimmen _(in Variable speichern)_
 2. Vorbereitung
-   1. Position des Zielobjekts prüfen
-   2. Brille auf undurchsichtig schalten + Handposition prüfen
-   3. Farbe des Objekts ändern
-   4. Brille auf sichtbar schalten
+   1. Position des Zielobjekts prüfen _(Abfrage Arduino über Positionierung)_
+   2. Brille auf undurchsichtig schalten + Handposition prüfen _(Senden an Arduino + Abfragen über Positionierung)_
+   3. Farbe des Objekts ändern _(Senden an Arduino)_
+   4. Brille auf sichtbar schalten _(Senden an Arduino)_
 3. Ausführung
-   1. Timing der Vibration und des Lichtreizes (beide erscheinen gleichzeitig)
-   2. Kontrolle ob die Handlung durchgeführt wurde; Kontrolle ob verbal reagiert wurde
-   3. Datenaufzeichnung
-   4. Lichtreize zurücksetzen; taktile Stimulation zurücksetzen
-   5. Zielobjekt zurückstellen
+   1. Timing der Vibration und des Lichtreizes (beide erscheinen gleichzeitig) _(Senden an Arduino mit Coroutine)_
+   2. Kontrolle ob die Handlung durchgeführt wurde; Kontrolle ob verbal reagiert wurde _(Abfragen über Positionierung + Spracherkennung?)_
+   3. Datenaufzeichnung _(Gelesene Daten in Variablen speichern)_
+   4. Lichtreize zurücksetzen; taktile Stimulation zurücksetzen _(Senden an Arduino)_
+   5. Zielobjekt zurückstellen + Prüfen _(Senden an Arduino + Abfragen über Positionierung)_
 4. Feedback
    1. Rückmeldung am Bildschirm
    2. Daten speichern
