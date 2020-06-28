@@ -1,25 +1,23 @@
-﻿using UnityEngine;
+using UnityEngine;
 
-public class TestState : IState
+public class TestState0 : IState
 {
-    //Controller owner;
-
+    
     public bool finished {get;set;}
- 
-    //public TestState(Controller owner) { this.owner = owner; }
+    public IState next_state{get;set;}
 
+    public TestState0(IState ns){
+        next_state = ns;
+    }
 
- 
     public void Enter()
     {
         Debug.Log("entering test state");
-
     }
  
     public void Execute()
     {
-        Debug.Log("updating test state");
-
+        test0();
     }
  
     public void Exit()
@@ -28,5 +26,8 @@ public class TestState : IState
     }
 
 
+    public void test0(){
+        Debug.Log("test0");
+    }
     
 }

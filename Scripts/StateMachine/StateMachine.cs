@@ -4,20 +4,26 @@ public class StateMachine
 {
     IState currentState;
 
-    public void ChangeState(IState newState)
-    {
-        if (currentState != null)
-            currentState.Exit();
+    public void SetState(IState state){
+        currentState = state;
+        currentState.Enter();
+    }
 
-        currentState = newState;
+    public void ChangeState()
+    {
+        currentState.Exit();
+        currentState = currentState.next_state;
         currentState.Enter();
     }
 
     public void Update()
     {
         if (currentState != null) currentState.Execute();
-
-        currentState.finished = true;
-
     }
+
+    public bool isStateFinished(){
+        return currentState.finished;
+    }
+
+    
 }

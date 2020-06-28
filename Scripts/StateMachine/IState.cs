@@ -5,4 +5,5 @@ public interface IState
     void Execute();
     void Exit();
     bool finished {get;set;}
+    IState next_state{get;set;}
 }
