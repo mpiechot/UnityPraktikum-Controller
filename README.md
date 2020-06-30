@@ -45,7 +45,7 @@
    3. Test ob das Experiment fertig ist
 
 ## Parts Aufteilung
-* **Part 1:** Initialisierung, Feedback, Begrüßung + Verabschiedung -- Leonie
+* **Part 1:** Initialisierung, Feedback, Begrüßung + Verabschiedung
 * **Part 2:** Vorbereitung, 3.5
 * **Part 3:** Ausführung,
 
