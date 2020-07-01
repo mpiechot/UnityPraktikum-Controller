@@ -5,7 +5,8 @@ using System.Collections;
 public class TestState1 : MonoBehaviour,IState
 {
     
-    public GameObject[] states;
+    public GameObject state0;
+    public GameObject state1;
 
     public bool finished {get;set;}
     public IState next_state{get;set;}
