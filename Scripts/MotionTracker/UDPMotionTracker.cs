@@ -38,6 +38,7 @@ public class UDPMotionTracker : MonoBehaviour
 
             //Process received data
             Debug.Log("Received: " + position);
+            transform.position = position;
         }
     }
 
