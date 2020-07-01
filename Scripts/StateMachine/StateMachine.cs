@@ -14,6 +14,7 @@ public class StateMachine : MonoBehaviour
 
     void Update()
     {
+        
         if (currentState != null) currentState.Execute();
         if(currentState.finished){
             ChangeState();
