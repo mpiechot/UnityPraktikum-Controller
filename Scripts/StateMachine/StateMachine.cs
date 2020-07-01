@@ -1,14 +1,25 @@
-﻿
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class StateMachine
+public class StateMachine : MonoBehaviour
 {
-    IState currentState;
 
-    //should be used to set the first state when the program starts
-    public void SetState(IState state){
-        currentState = state;
-        currentState.Enter();
+    public GameObject currentStateGameObject;
+    IState currentState;
+    
+    void Start(){
+        currentState = currentStateGameObject.GetComponent<IState>();
     }
+
+    void Update()
+    {
+        if (currentState != null) currentState.Execute();
+        if(currentState.finished){
+            ChangeState();
+        }
+    }
+
 
     public void ChangeState()
     {
@@ -16,15 +27,5 @@ public class StateMachine
         currentState = currentState.next_state;
         currentState.Enter();
     }
-
-    public void Update()
-    {
-        if (currentState != null) currentState.Execute();
-    }
-
-    public bool isStateFinished(){
-        return currentState.finished;
-    }
-
     
 }

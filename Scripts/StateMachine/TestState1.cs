@@ -1,29 +1,38 @@
 using UnityEngine;
+using System.Collections;
+//using UnityEngine.
 
-[System.Serializable]
-public class TestState1 : IState
+public class TestState1 : MonoBehaviour,IState
 {
     
+    public GameObject[] states;
+
     public bool finished {get;set;}
     public IState next_state{get;set;}
 
-    public TestState1(IState ns){
-        next_state = ns;
-    }
 
     public void Enter()
     {
-        Debug.Log("entering test state");
+        Debug.Log("entering test state0");
+        if(!coroutine_started){
+            StartCoroutine(this.coroutine());   
+        }
     }
  
+    private bool coroutine_finished = false;
+    private bool coroutine_started = false;
     public void Execute()
     {
         test1();
+        if(coroutine_finished){
+            finished = true;
+        }
+        
     }
  
     public void Exit()
     {
-        Debug.Log("exiting test state");
+        Debug.Log("exiting test state0");
     }
 
 
@@ -31,6 +40,12 @@ public class TestState1 : IState
         Debug.Log("test1");
     }
 
-
+    public IEnumerator coroutine(){
+        coroutine_started = true;
+        yield return new WaitForSeconds(1.0f);
+        Debug.Log("finished coroutine");
+        coroutine_finished = true;
+        yield return null;
+    }
     
 }

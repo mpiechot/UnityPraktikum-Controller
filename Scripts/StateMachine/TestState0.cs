@@ -5,12 +5,12 @@ using System.Collections;
 public class TestState0 : MonoBehaviour,IState
 {
     
+    public GameObject state_prepare;
+    public GameObject state_main;
+
     public bool finished {get;set;}
     public IState next_state{get;set;}
 
-    public TestState0(IState ns){
-        next_state = ns;
-    }
 
     public void Enter()
     {
@@ -28,6 +28,7 @@ public class TestState0 : MonoBehaviour,IState
         if(coroutine_finished){
             finished = true;
         }
+
         
     }
  
