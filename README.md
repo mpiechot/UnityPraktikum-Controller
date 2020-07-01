@@ -29,15 +29,18 @@
    3. welcher Finger wird stimuliert _(In Variable speichern)_
    4. Lichtreiz bestimmen _(in Variable speichern)_
 2. Vorbereitung
-   1. Position des Zielobjekts prüfen _(Abfrage Arduino über Positionierung)_ (**State**) Nötig? durch 3.5 wird bereits am Ende geprüft
-   2. Brille auf undurchsichtig schalten + Handposition auf Ausgangsposition prüfen _(Senden an Arduino + Abfragen über Positionierung)_ (**State**)
-   3. Farbe des Objekts ändern _(Senden an Arduino)_  (**State**)
-   4. Brille auf sichtbar schalten _(Senden an Arduino)_ (**State**)
+   1. Position des Zielobjekts prüfen _(Abfrage Arduino über Positionierung)_ (**State**)
+   2. Handposition auf Ausgangsposition prüfen (Abfragen über Positionierung Kugel m
+   deren Farben Stand repräsentiert)
+   3. Brille auf undurchsichtig schalten _(Senden an Arduino )_ 
+   (**State**)
+   4. Farbe des Objekts ändern _(Senden an Arduino)_  (**State**) Ebenfalls darstellen (zum debuggen)
+   5. Brille auf sichtbar schalten _(Senden an Arduino)_ (**State**) Ebenfalls darstellen (zum debuggen)
 3. Ausführung
    1. Timing der Vibration und des Lichtreizes (beide erscheinen gleichzeitig) _(Senden an Arduino mit Coroutine)_ X Auch mit Update möglich? (**State**)
    2. Kontrolle ob die Handlung durchgeführt wurde; Kontrolle ob verbal reagiert wurde _(Abfragen über Positionierung + Spracherkennung?)_ (**State**)
    3. Datenaufzeichnung _(Gelesene Daten in Variablen speichern)_ ?? spielt in 3.1 und 3.2 bereits mit rein. Extra State unnötig?
-   4. Lichtreize zurücksetzen; taktile Stimulation zurücksetzen _(Senden an Arduino)_ Taktile Stimulation erst jetzt "aus" machen? (**State**)
+   //4. Lichtreize zurücksetzen; taktile Stimulation zurücksetzen _(Senden an Arduino)_ Taktile Stimulation erst jetzt "aus" machen? (**State**)
    5. Zielobjekt zurückstellen + Prüfen _(Abfragen über Positionierung)_ (**State**)
 4. Feedback (**State**)
    1. Rückmeldung am Bildschirm
@@ -50,6 +53,6 @@
 * **Part 3:** Ausführung,
 
 ## Aufteilung:
-* **Marco**: Initialisierung, 2.3, 2.4, 3.4
+* **Marco**: Initialisierung, 2.4, 2.5, (3.4)
 * **Leonie**: Begrüßung + Verabschiedung, 2.1, 3.2
-* **Harald**: Feedback, 2.2, 3.1
+* **Harald**: Feedback, 2.2, 2.3 , 3.1
