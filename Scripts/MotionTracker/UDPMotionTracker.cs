@@ -7,6 +7,9 @@ using System.Threading;
 
 public class UDPMotionTracker : MonoBehaviour
 {
+
+    public bool record = false;
+
     // thread which will listen to udp datagrams
     Thread thread;
 
@@ -39,6 +42,11 @@ public class UDPMotionTracker : MonoBehaviour
             //Process received data
             Debug.Log("Received: " + position);
             transform.position = position;
+
+            if(record){
+                //TODO
+                //record the current position
+            }
         }
     }
 
