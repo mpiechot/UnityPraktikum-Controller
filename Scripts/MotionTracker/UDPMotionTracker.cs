@@ -7,7 +7,7 @@ using System.Threading;
 
 public class UDPMotionTracker : MonoBehaviour
 {
-
+    //record option which can be also set from the outside
     public bool record = false;
 
     // thread which will listen to udp datagrams
