@@ -46,6 +46,7 @@ public class UDPMotionTracker : MonoBehaviour
             if(record){
                 //TODO
                 //record the current position
+                //InformationManager.actual_positions.Add(position);
             }
         }
     }
