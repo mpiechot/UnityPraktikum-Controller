@@ -8,15 +8,65 @@ public class InitState : MonoBehaviour,IState
 {
     public int numberOfRuns = 10;
     public GameObject checkTargetPositionState;
+    public GameObject doneState;
+    public GameObject edgePrefab;
 
     public bool finished {get;set;}
     public IState next_state{get;set;}
 
     private Experiment[] experiments;
     private int currentExperiment = 0;
+    private MeshRenderer state_renderer;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
+    {
+        state_renderer = GetComponentInChildren<MeshRenderer>();
+        if (edgePrefab != null)
+        {
+            GameObject newEdge = Instantiate(edgePrefab);
+            Edge arrow = newEdge.GetComponent<Edge>();
+            arrow.start = this.transform.position;
+            arrow.target = checkTargetPositionState.transform.position;
+        }
+    }
+
+    public void Enter()
+    {
+        state_renderer.material.color = Color.red;
+        if(experiments == null)
+        {
+            Init();
+            currentExperiment = -1;
+        }
+    }
+
+    public void Execute()
+    {
+        state_renderer.material.color = Color.green;
+        currentExperiment++;
+        if (currentExperiment < experiments.Length)
+        {
+            Debug.Log("Count: " + currentExperiment + ": " + experiments[currentExperiment]);
+            InformationManager.actual_experiment = experiments[currentExperiment];
+            next_state = checkTargetPositionState.GetComponent<IState>();
+        }
+        else
+        {
+            //Experiments finished
+            next_state = doneState.GetComponent<IState>();
+        }
+        finished = true;
+        state_renderer.material.color = Color.red;
+        return;
+    }
+
+    public void Exit()
+    {
+        state_renderer.material.color = Color.blue;
+        return;
+    }
+
+    private void Init()
     {
         Array stimulations = Enum.GetValues(typeof(PossibleFingerStimulations));
         Array light_effects = Enum.GetValues(typeof(PossibleLightEffectSide));
@@ -33,7 +83,7 @@ public class InitState : MonoBehaviour,IState
                 {
                     foreach (PossibleObjectColor object_color in object_colors)
                     {
-                        for(int run = 0; run < numberOfRuns; run++)
+                        for (int run = 0; run < numberOfRuns; run++)
                         {
                             experiments[i++] = new Experiment(stimulation, light_effect, stimulation_start, object_color);
                         }
@@ -42,12 +92,7 @@ public class InitState : MonoBehaviour,IState
             }
         }
         Shuffle();
-        foreach(Experiment exp in experiments)
-        {
-            Debug.Log((i--) + ": " + exp);
-        }
     }
-
     //TODO Maybe another shuffle algorihm? This one seems to be not that great :/
     private void Shuffle()
     {
@@ -58,22 +103,5 @@ public class InitState : MonoBehaviour,IState
             experiments[rnd] = experiments[i];
             experiments[i] = tempGO;
         }
-    }
-
-    public void Enter()
-    {
-        currentExperiment++;
-        InformationManager.actual_experiment = experiments[currentExperiment];
-        finished = true;
-    }
-
-    public void Execute()
-    {
-        return;
-    }
-
-    public void Exit()
-    {
-        return;
     }
 }
