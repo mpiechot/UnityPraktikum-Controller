@@ -53,6 +53,6 @@
 * **Part 3:** Ausführung,
 
 ## Aufteilung:
-* **Marco**: Initialisierung, 2.4, 2.5, (3.4)
-* **Leonie**: Begrüßung + Verabschiedung, 2.1, 3.2
-* **Harald**: Feedback, 2.2, 2.3 , 3.1
+* **Marco**: Initialisierung, 2.4, 2.5, 3.1
+* **Leonie**: Begrüßung, Verabschiedung, 2.1, 3.2
+* **Harald**: Feedback, 2.2, 2.3 , udpmotiontracker

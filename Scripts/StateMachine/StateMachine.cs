@@ -9,23 +9,31 @@ public class StateMachine : MonoBehaviour
     IState currentState;
     
     void Start(){
-        currentState = currentStateGameObject.GetComponent<IState>();
+        if(currentStateGameObject != null){
+            currentState = currentStateGameObject.GetComponent<IState>();
+            currentState.Enter();
+        }
     }
 
     void Update()
     {
-        if (currentState != null) currentState.Execute();
-        if(currentState.finished){
-            ChangeState();
+        
+        if (currentState != null) {
+            currentState.Execute();
+            if(currentState.finished){
+                ChangeState();
+            }
         }
     }
 
 
     public void ChangeState()
     {
-        currentState.Exit();
-        currentState = currentState.next_state;
-        currentState.Enter();
+        if(currentState != null){
+            currentState.Exit();
+            currentState = currentState.next_state;
+            currentState.Enter();
+        }
     }
     
 }
