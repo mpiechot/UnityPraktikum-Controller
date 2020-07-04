@@ -15,7 +15,7 @@ public class StateFeedback : MonoBehaviour,IState
         Debug.Log("Entered State StateFeedback");
 
         //check, if experiment is finish
-        if(false){
+        if(isExperimentOver()){
             finished = true;
         }
         else{
@@ -31,10 +31,12 @@ public class StateFeedback : MonoBehaviour,IState
  
     public void Execute()
     {
-        if (Input.GetKeyDown("space"))
-        {
-            print("space key was pressed");
-            //finished = true;
+        if(!isExperimentOver()){
+            if (Input.GetKeyDown("space"))
+            {
+                print("space key was pressed");
+                //finished = true;
+            }
         }
     }
  
@@ -43,6 +45,13 @@ public class StateFeedback : MonoBehaviour,IState
         //store Data of this round
         Experiment current_experiment = InformationManager.actual_experiment;
         List<Vector3> hand_positions = InformationManager.actual_positions;
+
+        //reset InformationManager?
+    }
+
+
+    public bool isExperimentOver(){
+        return false;
     }
 
     
