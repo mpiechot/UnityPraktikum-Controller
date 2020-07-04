@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class StateFeedback : MonoBehaviour,IState
 {
-    public Text text;
+    public TextMeshProUGUI text;
     
     public bool finished {get;set;}
     public IState next_state{get;set;}
