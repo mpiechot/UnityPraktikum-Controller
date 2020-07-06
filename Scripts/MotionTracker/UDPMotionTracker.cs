@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Globalization;
 
 public class UDPMotionTracker : MonoBehaviour
 {
@@ -60,17 +61,18 @@ public class UDPMotionTracker : MonoBehaviour
         while (!receive_stop)
         {
             // remote host = motion tracker
-            IPEndPoint remote_host = new IPEndPoint(IPAddress.Any, 0);
+            IPEndPoint remote_host = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 12346);
 
             //stops here until a message was received from the remote host
             byte[] receiveBytes = udp.Receive(ref remote_host);
             
             //after receiving data, convert it to string
-            string position_text = Encoding.ASCII.GetString(receiveBytes);
-
-            // TODO...
+            string[] positions_text = Encoding.ASCII.GetString(receiveBytes).Split(',');
+            
             //extract real position out of the received string and set the global position variable accordingly
-            //position = ...
+            position.x = float.Parse(positions_text[0], CultureInfo.InvariantCulture);
+            position.y = float.Parse(positions_text[1], CultureInfo.InvariantCulture);
+            position.z = float.Parse(positions_text[2], CultureInfo.InvariantCulture);
 
             //set global bool true which tells the update method that a message was received and processed
             //-> rdy to be used further on in the next update invocation

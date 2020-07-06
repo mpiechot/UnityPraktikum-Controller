@@ -25,7 +25,7 @@ public class StateFeedback : MonoBehaviour,IState
             // Set alpha value
             color.a = 1;
             // Set text which will be displayed
-            text.text = "Du hast " + 10 + " Runden gemeistert. Es fehlen nur noch " + 10 + ". Drücke Leertaste um fortzufahren.";
+            text.text = "Das hast du toll gemacht. Drücke Leertaste für den nächsten Durchgang.";
             text.color = color;
         }
     }

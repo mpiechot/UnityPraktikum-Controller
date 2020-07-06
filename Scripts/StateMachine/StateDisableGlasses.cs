@@ -46,8 +46,8 @@ public class StateDisableGlasses : MonoBehaviour,IState
         yield return new WaitForSeconds(delay);
         Debug.Log("Ready to enter new State from StateDisable glasses");
         //comment the following in to process the next state
-        //next_state = debug_next_state0.GetComponent<IState>();
-        //finished = true;  
+        next_state = debug_next_state0.GetComponent<IState>();
+        finished = true;  
     }
     
     public void debugSendData(int state){
