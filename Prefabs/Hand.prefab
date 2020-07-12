@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3186529943907623796}
   - component: {fileID: 3186529943907623799}
   - component: {fileID: 3186529943907623798}
-  - component: {fileID: 3186529943907623792}
+  - component: {fileID: 3672194216071951083}
   m_Layer: 0
   m_Name: Hand
   m_TagString: Untagged
@@ -27,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3186529943907623795}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -94,7 +94,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3186529943907623792
+--- !u!114 &3672194216071951083
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,6 +103,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 3186529943907623795}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 963281723071d25449ccfbf240dc2101, type: 3}
+  m_Script: {fileID: 11500000, guid: b128045a2acde5d46b50bb0cf0f473b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  record_position: 0
+  record_rotation: 0

@@ -33,7 +33,7 @@ let z = 0;
 let remote_port = 12345;
 
 setInterval(function(){
-  //Every frame, simply move it to the left until it reaches the center
+  //Every frame, simply move the hand to the left until it reaches the center
   x = Math.max(x - 0.05,0);
 
   //construct a msg format

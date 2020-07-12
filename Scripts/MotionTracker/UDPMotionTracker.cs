@@ -6,25 +6,35 @@ using System.Text;
 using System.Threading;
 using System.Globalization;
 
+
 public class UDPMotionTracker : MonoBehaviour
 {
-    //record option which can be also set from the outside
-    public bool record = false;
+
+    public bool debug_mode = false;
 
     // thread which will listen to udp datagrams
     Thread thread;
 
     // indicates when a datagram was received and processed
-    bool processed_received_datagrams = false;
+    bool[] processed_received_datagrams;
 
     // global position variable, which is used to store the received information
-    Vector3 position = new Vector3();
+    public Transform hand_transform;
+    private Vector3 hand_position = new Vector3();
+
+    public Transform cylinder_transform;
+    private Vector3 cylinder_position;
+    private Vector3 cylinder_rotation;
     
     // indicates when to stop listening for udp datagrams
     private bool receive_stop = false;
 
     void Start ()
     {
+        processed_received_datagrams = new bool[2];
+        processed_received_datagrams[0] = false;
+        processed_received_datagrams[1] = false;
+
         //init thread with the reading loop
         thread = new Thread(new ThreadStart(readingLoop));
 
@@ -34,28 +44,28 @@ public class UDPMotionTracker : MonoBehaviour
 
     void Update()
     {   
-        // check, if a message was received and processed
-        if (processed_received_datagrams)
-        {
-            //set it back to false, so that a new position can be processed here afterwards
-            processed_received_datagrams = false;
+        if(!debug_mode){
+            // check, if a message was received and processed
+            if(processed_received_datagrams[0])
+            {
+                //set it back to false, so that a new position can be processed here afterwards
+                processed_received_datagrams[0] = false;
+                hand_transform.position = hand_position;
+            }
 
-            //Process received data
-            Debug.Log("Received: " + position);
-            transform.position = position;
-
-            if(record){
-                //TODO
-                //record the current position
-                //InformationManager.actual_positions.Add(position);
+            if(processed_received_datagrams[1]){
+                processed_received_datagrams[1] = false;
+                cylinder_transform.position = cylinder_position;
+                //cylinder_transform.rotation = cylinder_rotation;
             }
         }
+        
     }
 
     private void readingLoop()
     {
         // set up the udp client (has to be done within the thread)
-        UdpClient udp = new UdpClient(12345);
+        UdpClient udp = new UdpClient(44445);
 
         // reading loop
         while (!receive_stop)
@@ -63,20 +73,40 @@ public class UDPMotionTracker : MonoBehaviour
             // remote host = motion tracker
             IPEndPoint remote_host = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 12346);
 
+            
             //stops here until a message was received from the remote host
             byte[] receiveBytes = udp.Receive(ref remote_host);
-            
+            //Debug.Log(Encoding.ASCII.GetString(receiveBytes).ToString());
             //after receiving data, convert it to string
-            string[] positions_text = Encoding.ASCII.GetString(receiveBytes).Split(',');
-            
-            //extract real position out of the received string and set the global position variable accordingly
-            position.x = float.Parse(positions_text[0], CultureInfo.InvariantCulture);
-            position.y = float.Parse(positions_text[1], CultureInfo.InvariantCulture);
-            position.z = float.Parse(positions_text[2], CultureInfo.InvariantCulture);
+            string[] data = Encoding.ASCII.GetString(receiveBytes).Split(';')[0].Split(',');
+            Debug.Log(float.Parse(data[0]));
+            if(float.Parse(data[0]) == 0){
+                //extract real position out of the received string and set the global position variable accordingly
+                hand_position.x = float.Parse(data[1], CultureInfo.InvariantCulture);
+                hand_position.y = float.Parse(data[2], CultureInfo.InvariantCulture);
+                hand_position.z = float.Parse(data[3], CultureInfo.InvariantCulture);
 
-            //set global bool true which tells the update method that a message was received and processed
-            //-> rdy to be used further on in the next update invocation
-            processed_received_datagrams = true;
+                //set global bool true which tells the update method that a message was received and processed
+                //-> rdy to be used further on in the next update invocation
+                processed_received_datagrams[0] = true;
+            }
+            else if(float.Parse(data[0]) == 10){ //currently dont know why its 10 and not 1...
+                //extract real position out of the received string and set the global position variable accordingly
+                cylinder_position.x = float.Parse(data[1], CultureInfo.InvariantCulture);
+                cylinder_position.y = float.Parse(data[2], CultureInfo.InvariantCulture);
+                cylinder_position.z = float.Parse(data[3], CultureInfo.InvariantCulture);
+                
+
+                cylinder_rotation.x = float.Parse(data[4], CultureInfo.InvariantCulture);
+                cylinder_rotation.y = float.Parse(data[5], CultureInfo.InvariantCulture);
+                cylinder_rotation.z = float.Parse(data[6], CultureInfo.InvariantCulture);
+
+                //set global bool true which tells the update method that a message was received and processed
+                //-> rdy to be used further on in the next update invocation
+                processed_received_datagrams[1] = true;
+            }
+            
+            
         }
             
     }

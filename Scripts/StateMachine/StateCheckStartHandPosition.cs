@@ -21,6 +21,9 @@ public class StateCheckStartHandPosition : MonoBehaviour,IState
     private bool coroutine_running = false;
 
 
+    private float time_stamp;
+
+
     public void Enter()
     {
         Debug.Log("Entered State CheckStartHandPosition");
@@ -30,12 +33,26 @@ public class StateCheckStartHandPosition : MonoBehaviour,IState
         color.a = 1;
         text.text = "";
         text.color = color;
+
+        time_stamp = -1;
     }
  
     public void Execute()
     {
         if(startarea_collider.bounds.Contains(hand_transform.position)){
             hand_renderer.material.color = Color.green;
+
+            // if(time_stamp == -1){
+            //     time_stamp = Time.realtimeSinceStartup;
+            // }
+            // else{
+            //     float delta_time = Time.realtimeSinceStartup - time_stamp;
+            //     if(delta_time > duration){
+                    
+            //         finished = true;
+            //     }
+            // }
+
             if(!coroutine_running){
                 coroutine = StartCoroutine(checkPositionOverTime(duration));
             }

@@ -17,6 +17,7 @@ public class StateFeedback : MonoBehaviour,IState
 
         //check, if experiment is finish
         if(isExperimentOver()){
+            //next_state = ...;
             finished = true;
         }
         else{
@@ -36,6 +37,7 @@ public class StateFeedback : MonoBehaviour,IState
             if (Input.GetKeyDown("space"))
             {
                 print("space key was pressed");
+                //next_state = ...;
                 //finished = true;
             }
         }
