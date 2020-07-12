@@ -13,7 +13,7 @@ public class StateWelcome : MonoBehaviour, IState {
 
     public void Enter() {
         Debug.Log("Enter: StateWelcome");
-        text.text = "PELIKAN";
+        text.text = "Enter Welcome State";
     }
 
     public void Execute() {

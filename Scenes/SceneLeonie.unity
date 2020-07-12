@@ -412,6 +412,8 @@ MonoBehaviour:
   state_goodbye: {fileID: 1391308893}
   target_position: {fileID: 2112421825}
   cylinder: {fileID: 1597219359}
+  text: {fileID: 325374530}
+  duration: 3
 --- !u!1 &1065167759
 GameObject:
   m_ObjectHideFlags: 0
@@ -940,6 +942,8 @@ MonoBehaviour:
   state_check_action_peformed: {fileID: 998326402}
   starting_position: {fileID: 317273974}
   cylinder: {fileID: 1597219359}
+  text: {fileID: 325374530}
+  duration: 3
 --- !u!4 &1891330624
 Transform:
   m_ObjectHideFlags: 0
@@ -1163,6 +1167,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5465442980888225463, guid: da5abbd5926e0b145826861e07afa4ac,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5465442980888225463, guid: da5abbd5926e0b145826861e07afa4ac,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da5abbd5926e0b145826861e07afa4ac, type: 3}

@@ -12,13 +12,13 @@ public class StateGoodbye : MonoBehaviour, IState {
 
     public void Enter() {
         Debug.Log("Enter: StateGoodbye");
-
-        text.text = "Danke fürs Mitmachen.";
+        text.text = "Enter Welcome State";
+        
     }
 
     public void Execute() {
         if (Input.GetKeyDown("space")) {
-            Debug.Log("Experiment finished");
+            text.text = "Danke fürs Mitmachen.";
         }
     }
 

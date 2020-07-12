@@ -8,4 +8,5 @@ public interface IState
     void Exit();
     bool finished {get;set;}
     IState next_state{get;set;}
+   
 }

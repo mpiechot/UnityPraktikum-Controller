@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnableGlassesState : MonoBehaviour,IState
+public class StateDummy : MonoBehaviour,IState
 {
-    public GameObject executionState;
     public GameObject edgePrefab;
 
     public bool finished { get; set; }
@@ -16,20 +15,7 @@ public class EnableGlassesState : MonoBehaviour,IState
     {
         state_renderer = GetComponentInChildren<SpriteRenderer>();
         state_renderer.material.color = Color.blue;
-
-        if (edgePrefab != null)
-        {
-            AddEdge(executionState.transform.position);
-        }
     }
-    void AddEdge(Vector3 target)
-    {
-        GameObject newEdge = Instantiate(edgePrefab, transform);
-        LineRendererArrow arrow = newEdge.GetComponent<LineRendererArrow>();
-        arrow.ArrowOrigin = this.transform.position;
-        arrow.ArrowTarget = target;
-    }
-
     public void Enter()
     {
         state_renderer.material.color = Color.red;
@@ -37,14 +23,6 @@ public class EnableGlassesState : MonoBehaviour,IState
     }
 
     public void Execute()
-    {
-        EnableGlasses();
-        next_state = executionState.GetComponent<IState>();
-        finished = true;
-        return;
-    }
-
-    private void EnableGlasses()
     {
         return;
     }
