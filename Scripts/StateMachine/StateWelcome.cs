@@ -11,9 +11,32 @@ public class StateWelcome : MonoBehaviour, IState {
     public TextMeshProUGUI text;
     public GameObject state_check_object_position;
 
+    public GameObject edgePrefab;
+
+    private SpriteRenderer state_renderer;
+
+    void Awake()
+    {
+        state_renderer = GetComponentInChildren<SpriteRenderer>();
+        state_renderer.material.color = Color.blue;
+
+        if (edgePrefab != null)
+        {
+            AddEdge(state_check_object_position.transform.position);
+        }
+    }
+    void AddEdge(Vector3 target)
+    {
+        GameObject newEdge = Instantiate(edgePrefab, transform);
+        LineRendererArrow arrow = newEdge.GetComponent<LineRendererArrow>();
+        arrow.ArrowOrigin = this.transform.position;
+        arrow.ArrowTarget = target;
+    }
+
     public void Enter() {
+        state_renderer.material.color = Color.red;
         Debug.Log("Enter: StateWelcome");
-        text.text = "Enter Welcome State";
+        text.text = "Hi wie gehts. Drücke n zum Starten!";
     }
 
     public void Execute() {
@@ -28,6 +51,8 @@ public class StateWelcome : MonoBehaviour, IState {
     }
 
     public void Exit() {
+        state_renderer.material.color = Color.blue;
         Debug.Log("Exit: StateWelcome");
+        finished = false;
     }
 }

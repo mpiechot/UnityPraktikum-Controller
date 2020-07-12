@@ -69,6 +69,7 @@ public class StateStartStimulation : MonoBehaviour, IState
     public void Exit()
     {
         state_renderer.material.color = Color.blue;
+        finished = false;
         return;
     }
 
@@ -79,6 +80,8 @@ public class StateStartStimulation : MonoBehaviour, IState
         ChangeStimulationState(finger, true);
         yield return new WaitForSeconds(stimulationTime);
         ChangeStimulationState(finger, false);
+        yield return new WaitForSeconds(1f);
+        ChangeFingerLightState(effect_side, false);
     }
 
     private IEnumerator StimulationAfterHalfWay(PossibleLightEffectSide effect_side, PossibleFingerStimulations finger)
@@ -91,6 +94,8 @@ public class StateStartStimulation : MonoBehaviour, IState
         ChangeStimulationState(finger, true);
         yield return new WaitForSeconds(stimulationTime);
         ChangeStimulationState(finger, false);
+        yield return new WaitForSeconds(1f);
+        ChangeFingerLightState(effect_side, false);
     }
 
     private bool HalfWayDone()
@@ -106,7 +111,7 @@ public class StateStartStimulation : MonoBehaviour, IState
         Debug.Log("ChangeStimulationState needs to be implementet!");
         if (state)
         {
-            hand.GetComponent<MeshRenderer>().material.color = Color.red;
+            hand.GetComponent<MeshRenderer>().material.color = Color.yellow;
         }
         else
         {

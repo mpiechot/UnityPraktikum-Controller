@@ -12,15 +12,38 @@ public class StateCheckObjectPosition : MonoBehaviour, IState {
     public Collider starting_position;
     public Transform cylinder;
 
+    public GameObject edgePrefab;
+
     public TextMeshProUGUI text;
 
     public int duration;
     private Coroutine coroutine;
     private bool coroutine_running = false;
 
+    private SpriteRenderer state_renderer;
+
+    void Awake()
+    {
+        state_renderer = GetComponentInChildren<SpriteRenderer>();
+        state_renderer.material.color = Color.blue;
+
+        if (edgePrefab != null)
+        {
+            AddEdge(state_check_action_peformed.transform.position);
+        }
+    }
+    void AddEdge(Vector3 target)
+    {
+        GameObject newEdge = Instantiate(edgePrefab, transform);
+        LineRendererArrow arrow = newEdge.GetComponent<LineRendererArrow>();
+        arrow.ArrowOrigin = this.transform.position;
+        arrow.ArrowTarget = target;
+    }
+
     public void Enter() {
+        state_renderer.material.color = Color.red;
         Debug.Log("Enter: StateCheckObjectPosition");
-        text.text = "State Check Object Position";
+        text.text = "Stelle den Zylinder in die Startposition";
     }
 
     public void Execute() {
@@ -30,7 +53,7 @@ public class StateCheckObjectPosition : MonoBehaviour, IState {
             }
         } else {
             if(coroutine_running){
-                text.text = "Coroutine abgebrochen";
+                text.text = "Stelle den Zylinder in die Startposition!";
                 StopCoroutine(coroutine);
                 coroutine_running = false;
             }
@@ -38,7 +61,10 @@ public class StateCheckObjectPosition : MonoBehaviour, IState {
     }
 
     public void Exit() {
+        state_renderer.material.color = Color.blue;
         Debug.Log("Exit: StateCheckObjectPosition");
+        coroutine_running = false;
+        finished = false;
     }
 
     public IEnumerator CheckPositionOverTime(int object_in_position) {

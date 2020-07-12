@@ -6,6 +6,7 @@ public class EnableGlassesState : MonoBehaviour,IState
 {
     public GameObject executionState;
     public GameObject edgePrefab;
+    public Renderer glasses_renderer;
 
     public bool finished { get; set; }
     public IState next_state { get; set; }
@@ -46,12 +47,16 @@ public class EnableGlassesState : MonoBehaviour,IState
 
     private void EnableGlasses()
     {
+        Color color = Color.red;
+        color.a = 0f;
+        glasses_renderer.material.color = color;
         return;
     }
 
     public void Exit()
     {
         state_renderer.material.color = Color.blue;
+        finished = false;
         return;
     }
 }

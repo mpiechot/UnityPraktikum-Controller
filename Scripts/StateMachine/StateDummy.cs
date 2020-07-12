@@ -30,6 +30,7 @@ public class StateDummy : MonoBehaviour,IState
     public void Exit()
     {
         state_renderer.material.color = Color.blue;
+        finished = false;
         return;
     }
 }

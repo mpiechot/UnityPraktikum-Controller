@@ -17,15 +17,37 @@ public class StateCheckStartHandPosition : MonoBehaviour,IState
     public bool finished {get;set;}
     public IState next_state{get;set;}
 
+    public GameObject edgePrefab;
+
     private Coroutine coroutine;
     private bool coroutine_running = false;
 
 
     private float time_stamp;
+    private SpriteRenderer state_renderer;
+
+    void Awake()
+    {
+        state_renderer = GetComponentInChildren<SpriteRenderer>();
+        state_renderer.material.color = Color.blue;
+
+        if (edgePrefab != null)
+        {
+            AddEdge(state_disable_glasses.transform.position);
+        }
+    }
+    void AddEdge(Vector3 target)
+    {
+        GameObject newEdge = Instantiate(edgePrefab, transform);
+        LineRendererArrow arrow = newEdge.GetComponent<LineRendererArrow>();
+        arrow.ArrowOrigin = this.transform.position;
+        arrow.ArrowTarget = target;
+    }
 
 
     public void Enter()
     {
+        state_renderer.material.color = Color.red;
         Debug.Log("Entered State CheckStartHandPosition");
 
         //Set text visible
@@ -69,20 +91,22 @@ public class StateCheckStartHandPosition : MonoBehaviour,IState
  
     public void Exit()
     {
+        state_renderer.material.color = Color.blue;
         Debug.Log("Exit State CheckStartHandPosition");
-
+        coroutine_running = false;
         //Set text invisible
         Color color = Color.black;
         color.a = 0;
         text.text = "";
         text.color = color;
+        finished = false;
     }
 
     public IEnumerator checkPositionOverTime(int hand_in_area_duration)
     {
         coroutine_running = true;
         for(int i = hand_in_area_duration; i > 0; i--){
-            text.text = "Sehr gut! Es geht los in " + i + " Sekunden";
+            text.text = "Super! Halte deine Hand noch " + i + " Sekunden in dem Bereich";
             yield return new WaitForSeconds(1);
         }
         Debug.Log("Ready to enter new State DisableGlasses");

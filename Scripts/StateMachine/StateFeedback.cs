@@ -11,8 +11,33 @@ public class StateFeedback : MonoBehaviour,IState
     public bool finished {get;set;}
     public IState next_state{get;set;}
 
+    public GameObject init;
+    public GameObject edgePrefab;
+
+    private SpriteRenderer state_renderer;
+
+    void Awake()
+    {
+        state_renderer = GetComponentInChildren<SpriteRenderer>();
+        state_renderer.material.color = Color.blue;
+
+        if (edgePrefab != null)
+        {
+            AddEdge(init.transform.position);
+        }
+    }
+    void AddEdge(Vector3 target)
+    {
+        GameObject newEdge = Instantiate(edgePrefab, transform);
+        LineRendererArrow arrow = newEdge.GetComponent<LineRendererArrow>();
+        arrow.ArrowOrigin = this.transform.position;
+        arrow.ArrowTarget = target;
+    }
+
     public void Enter()
     {
+        state_renderer.material.color = Color.red;
+
         Debug.Log("Entered State StateFeedback");
 
         //check, if experiment is finish
@@ -37,19 +62,22 @@ public class StateFeedback : MonoBehaviour,IState
             if (Input.GetKeyDown("space"))
             {
                 print("space key was pressed");
-                //next_state = ...;
-                //finished = true;
+                next_state = init.GetComponent<IState>();
+                finished = true;
             }
         }
     }
  
     public void Exit()
     {
+
+        state_renderer.material.color = Color.blue;
         //store Data of this round
         Experiment current_experiment = InformationManager.actual_experiment;
         List<Vector3> hand_positions = InformationManager.actual_positions;
-
+        finished = false;
         //reset InformationManager?
+        current_experiment.SuccessfulFinished = true;
     }
 
 

@@ -9,8 +9,30 @@ public class StateGoodbye : MonoBehaviour, IState {
     public IState next_state { get; set; }
 
     public TextMeshProUGUI text;
+    public GameObject edgePrefab;
+
+    private SpriteRenderer state_renderer;
+
+    void Awake()
+    {
+        state_renderer = GetComponentInChildren<SpriteRenderer>();
+        state_renderer.material.color = Color.blue;
+
+        if (edgePrefab != null)
+        {
+            
+        }
+    }
+    void AddEdge(Vector3 target)
+    {
+        GameObject newEdge = Instantiate(edgePrefab, transform);
+        LineRendererArrow arrow = newEdge.GetComponent<LineRendererArrow>();
+        arrow.ArrowOrigin = this.transform.position;
+        arrow.ArrowTarget = target;
+    }
 
     public void Enter() {
+        state_renderer.material.color = Color.red;
         Debug.Log("Enter: StateGoodbye");
         text.text = "Enter Goodbye State";
         
@@ -23,7 +45,9 @@ public class StateGoodbye : MonoBehaviour, IState {
     }
 
     public void Exit() {
+        state_renderer.material.color = Color.blue;
         Debug.Log("Exit: StateGoodbye");
+        finished = false;
     }
 
 }

@@ -12,10 +12,33 @@ public class StateDisableGlasses : MonoBehaviour,IState
     public bool finished {get;set;}
     public IState next_state{get;set;}
 
+    public GameObject edgePrefab;
+
     private bool coroutine_running = false;
+
+    private SpriteRenderer state_renderer;
+
+    void Awake()
+    {
+        state_renderer = GetComponentInChildren<SpriteRenderer>();
+        state_renderer.material.color = Color.blue;
+
+        if (edgePrefab != null)
+        {
+            AddEdge(debug_next_state0.transform.position);
+        }
+    }
+    void AddEdge(Vector3 target)
+    {
+        GameObject newEdge = Instantiate(edgePrefab, transform);
+        LineRendererArrow arrow = newEdge.GetComponent<LineRendererArrow>();
+        arrow.ArrowOrigin = this.transform.position;
+        arrow.ArrowTarget = target;
+    }
 
     public void Enter()
     {
+        state_renderer.material.color = Color.red;
         Debug.Log("Entered State DisableGlasses");
     }
  
@@ -37,7 +60,9 @@ public class StateDisableGlasses : MonoBehaviour,IState
  
     public void Exit()
     {
+        state_renderer.material.color = Color.blue;
         coroutine_running = false;
+        finished = false;
     }
 
     public IEnumerator continueAfterSeconds(float delay)

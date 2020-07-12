@@ -8,6 +8,8 @@ public class ChangeObjectColorState : MonoBehaviour,IState
     public GameObject enableGlasses;
     public GameObject edgePrefab;
 
+    public MeshRenderer cylinder_renderer;
+
     public bool finished { get; set; }
     public IState next_state { get; set; }
 
@@ -50,12 +52,19 @@ public class ChangeObjectColorState : MonoBehaviour,IState
 
     private void ChangeObjectColor(PossibleObjectColor object_color)
     {
+        if(object_color == PossibleObjectColor.YELLOW){
+            cylinder_renderer.material.color = Color.yellow;
+        }
+        else{
+            cylinder_renderer.material.color = Color.green;
+        }
         return;
     }
 
     public void Exit()
     {
         state_renderer.material.color = Color.blue;
+        finished = false;
         return;
     }
 
