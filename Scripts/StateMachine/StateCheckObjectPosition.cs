@@ -25,7 +25,6 @@ public class StateCheckObjectPosition : MonoBehaviour, IState {
 
     public void Execute() {
         if (starting_position.bounds.Contains(cylinder.position)) {
-            Debug.Log("Object at original position");
             if (!coroutine_running) {
                 coroutine = StartCoroutine(CheckPositionOverTime(duration));
             }

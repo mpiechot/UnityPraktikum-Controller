@@ -12,7 +12,7 @@ public class StateGoodbye : MonoBehaviour, IState {
 
     public void Enter() {
         Debug.Log("Enter: StateGoodbye");
-        text.text = "Enter Welcome State";
+        text.text = "Enter Goodbye State";
         
     }
 

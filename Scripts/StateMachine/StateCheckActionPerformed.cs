@@ -18,16 +18,17 @@ public class StateCheckActionPerformed : MonoBehaviour, IState {
     private Coroutine coroutine;
     private bool coroutine_running = false;
 
+    public SpeechRecognitionClient speech_receiver;
+
+    private string obj_rotation;
+
     public void Enter() {
         Debug.Log("Enter: StateActionPerformed");
         text.text = "Bewege Zylinder";
     }
 
     public void Execute() {
-        // TODO: zusätzlich abfragen, bzgl verbaler Reaktion
         if (target_position.bounds.Contains(cylinder.position)) {
-            Debug.Log("Object at target position");
-            Debug.Log("TODO: Verbale Reaktion fehlt noch");
             if (!coroutine_running) {
                 coroutine = StartCoroutine(CheckPositionOverTime(duration));
             }
@@ -53,10 +54,11 @@ public class StateCheckActionPerformed : MonoBehaviour, IState {
             yield return new WaitForSeconds(1);
         }
         text.text = "Fertig";
+
+        Debug.Log("You said the word: " + speech_receiver.recognizedWord);
+        obj_rotation = cylinder.transform.rotation.eulerAngles.z == 180 ? "upside down" : "richtig rum";
+        
         next_state = state_goodbye.GetComponent<IState>();
         finished = true;
     }
-
 }
-
-// checken, ob Fußboden zuerst oder richtig rum
