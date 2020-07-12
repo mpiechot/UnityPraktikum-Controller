@@ -30,9 +30,9 @@
    4. Lichtreiz bestimmen _(in Variable speichern)_
 2. Vorbereitung
    1. Position des Zielobjekts prüfen _(Abfrage Arduino über Positionierung)_ (**State**)
-   2. Handposition auf Ausgangsposition prüfen (Abfragen über Positionierung Kugel m
+   2. Handposition auf Ausgangsposition prüfen (Abfragen über Positionierung Kugel m (**State**)
    deren Farben Stand repräsentiert)
-   3. Brille auf undurchsichtig schalten _(Senden an Arduino )_ 
+   3. Brille auf undurchsichtig schalten _(Senden an Arduino )_ (**State**)
    (**State**)
    4. Farbe des Objekts ändern _(Senden an Arduino)_  (**State**) Ebenfalls darstellen (zum debuggen)
    5. Brille auf sichtbar schalten _(Senden an Arduino)_ (**State**) Ebenfalls darstellen (zum debuggen)
