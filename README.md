@@ -56,3 +56,10 @@
 * **Marco**: Initialisierung, 2.4, 2.5, 3.1
 * **Leonie**: Begrüßung, Verabschiedung, 2.1, 3.2
 * **Harald**: Feedback, 2.2, 2.3 , udpmotiontracker
+
+## ToDo-Notizen
+* States in UI verschieben? => LineRenderer für UI?
+* UI Größe, Farben, Schrift, Text anpassen?
+* States Beschriften?
+* Lichtreiz auch am Cylinder rechts und links anbringen statt Farbe der StartArea zu ändern?
+* Kamera besser ausrichten? Top-Down?
