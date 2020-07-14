@@ -63,3 +63,4 @@
 * States Beschriften?
 * Lichtreiz auch am Cylinder rechts und links anbringen statt Farbe der StartArea zu ändern?
 * Kamera besser ausrichten? Top-Down?
+* Feedback State noch die Daten für den aktuellen Durchlauf extern abspeichern
