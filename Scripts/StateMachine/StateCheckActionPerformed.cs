@@ -23,6 +23,7 @@ public class StateCheckActionPerformed : MonoBehaviour, IState {
     private bool coroutine_running = false;
 
     public SpeechRecognitionClient speech_receiver;
+    private bool has_responded;
 
     private string obj_rotation;
     private SpriteRenderer state_renderer;
@@ -54,9 +55,15 @@ public class StateCheckActionPerformed : MonoBehaviour, IState {
         color.a = 1;
 
         text.color = color;
+
+        has_responded = false;
     }
 
     public void Execute() {
+        // wenn nach 2s keine Reaktion erfolgt ist - merken (Zeitstempel)
+        if (!has_responded) {
+            // checken ob verbale reaktion
+        }
         if (target_position.bounds.Contains(cylinder.position)) {
             if (!coroutine_running) {
                 coroutine = StartCoroutine(CheckPositionOverTime(duration));
