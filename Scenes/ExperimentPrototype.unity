@@ -417,6 +417,11 @@ PrefabInstance:
       propertyPath: text
       value: 
       objectReference: {fileID: 1459760383}
+    - target: {fileID: 3445578894988468246, guid: c6e33d099198c864ca0df7a5486c0d4c,
+        type: 3}
+      propertyPath: next_object_go
+      value: 
+      objectReference: {fileID: 316142235927514709}
     - target: {fileID: 4557494797747699260, guid: c6e33d099198c864ca0df7a5486c0d4c,
         type: 3}
       propertyPath: glasses_renderer
@@ -552,6 +557,11 @@ PrefabInstance:
       propertyPath: text
       value: 
       objectReference: {fileID: 1459760383}
+    - target: {fileID: 7531363112723959916, guid: c6e33d099198c864ca0df7a5486c0d4c,
+        type: 3}
+      propertyPath: next_state_go
+      value: 
+      objectReference: {fileID: 316142235927514710}
     - target: {fileID: 7531363113440892324, guid: c6e33d099198c864ca0df7a5486c0d4c,
         type: 3}
       propertyPath: starting_position
@@ -574,6 +584,18 @@ PrefabInstance:
       objectReference: {fileID: 169199328}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6e33d099198c864ca0df7a5486c0d4c, type: 3}
+--- !u!1 &316142235927514709 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 934376721310635050, guid: c6e33d099198c864ca0df7a5486c0d4c,
+    type: 3}
+  m_PrefabInstance: {fileID: 316142235927514708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &316142235927514710 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7353460199321236219, guid: c6e33d099198c864ca0df7a5486c0d4c,
+    type: 3}
+  m_PrefabInstance: {fileID: 316142235927514708}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2562907587846635459
 PrefabInstance:
   m_ObjectHideFlags: 0
