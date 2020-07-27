@@ -640,6 +640,11 @@ PrefabInstance:
       propertyPath: speech_receiver
       value: 
       objectReference: {fileID: 983819094}
+    - target: {fileID: 54240898194926641, guid: bf97997d84071904fba9060d8cd9ac16,
+        type: 3}
+      propertyPath: hand
+      value: 
+      objectReference: {fileID: 1880730378}
     - target: {fileID: 1095582009111851920, guid: bf97997d84071904fba9060d8cd9ac16,
         type: 3}
       propertyPath: m_Color.r
@@ -1070,6 +1075,11 @@ PrefabInstance:
       propertyPath: speech_receiver
       value: 
       objectReference: {fileID: 983819094}
+    - target: {fileID: 5575178767093649482, guid: bf97997d84071904fba9060d8cd9ac16,
+        type: 3}
+      propertyPath: hand
+      value: 
+      objectReference: {fileID: 1880730378}
     - target: {fileID: 5610412999991446460, guid: bf97997d84071904fba9060d8cd9ac16,
         type: 3}
       propertyPath: m_TagString
