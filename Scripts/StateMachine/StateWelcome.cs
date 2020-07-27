@@ -9,7 +9,7 @@ public class StateWelcome : MonoBehaviour, IState {
     public IState next_state { get; set; }
 
     public TextMeshProUGUI text;
-    public GameObject state_check_object_position;
+    public GameObject next_object_go;
 
     public GameObject edgePrefab;
 
@@ -22,7 +22,7 @@ public class StateWelcome : MonoBehaviour, IState {
 
         if (edgePrefab != null)
         {
-            AddEdge(state_check_object_position.transform.position);
+            AddEdge(next_object_go.transform.position);
         }
     }
     void AddEdge(Vector3 target)
@@ -45,7 +45,7 @@ public class StateWelcome : MonoBehaviour, IState {
         }
         if (Input.GetKeyDown("n")) {
             Debug.Log("Experiment about to start");
-            next_state = state_check_object_position.GetComponent<IState>();
+            next_state = next_object_go.GetComponent<IState>();
             finished = true;
         }
     }

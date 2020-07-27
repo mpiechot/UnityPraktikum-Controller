@@ -17,6 +17,8 @@ public class StateStartStimulation : MonoBehaviour, IState
     public float delay = 1f;
     public float stimulationTime = 2f;
 
+    public SpeechRecognitionClient speech_receiver;
+
     private const float HALF_WAY_PERCENTAGE = 50f;
     private SpriteRenderer state_renderer;
 
@@ -78,6 +80,7 @@ public class StateStartStimulation : MonoBehaviour, IState
         yield return new WaitForSeconds(delay);
         ChangeFingerLightState(effect_side,true);
         ChangeStimulationState(finger, true);
+        speech_receiver.recognizedWord = "";
         yield return new WaitForSeconds(stimulationTime);
         ChangeStimulationState(finger, false);
         yield return new WaitForSeconds(1f);
@@ -92,6 +95,8 @@ public class StateStartStimulation : MonoBehaviour, IState
         }
         ChangeFingerLightState(effect_side, true);
         ChangeStimulationState(finger, true);
+        speech_receiver.recognizedWord = "";
+        // TODO: Zeitstempel (nur erste Variable)
         yield return new WaitForSeconds(stimulationTime);
         ChangeStimulationState(finger, false);
         yield return new WaitForSeconds(1f);

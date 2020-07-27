@@ -8,7 +8,7 @@ public class StateCheckObjectPosition : MonoBehaviour, IState {
     public bool finished { get; set; }
     public IState next_state { get; set; }
 
-    public GameObject state_check_action_peformed;
+    public GameObject next_state_go;
     public Collider starting_position;
     public Transform cylinder;
 
@@ -29,7 +29,7 @@ public class StateCheckObjectPosition : MonoBehaviour, IState {
 
         if (edgePrefab != null)
         {
-            AddEdge(state_check_action_peformed.transform.position);
+            AddEdge(next_state_go.transform.position);
         }
     }
     void AddEdge(Vector3 target)
@@ -74,7 +74,7 @@ public class StateCheckObjectPosition : MonoBehaviour, IState {
             yield return new WaitForSeconds(1);
         }
         text.text = "Fertig";
-        next_state = state_check_action_peformed.GetComponent<IState>();
+        next_state = next_state_go.GetComponent<IState>();
         finished = true;
     }
 

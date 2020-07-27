@@ -23,6 +23,8 @@ public class StateCheckActionPerformed : MonoBehaviour, IState {
     private bool coroutine_running = false;
 
     public SpeechRecognitionClient speech_receiver;
+    private bool has_responded;
+    private string response;
 
     private string obj_rotation;
     private SpriteRenderer state_renderer;
@@ -54,9 +56,30 @@ public class StateCheckActionPerformed : MonoBehaviour, IState {
         color.a = 1;
 
         text.color = color;
+
+        has_responded = false;
     }
 
     public void Execute() {
+        // Mithilfe eines Zeitstempels überprüfen, ob Reaktion innerhalb 2 s erfolgt ist. Wenn nicht -> notieren. 
+        // if (!has_responded && response_time < 2s) -> response_time mit Zeitstempel berechnen
+        /* damit kann man aktuelle Zeit herausfinden
+            DateTime dt = DateTime.Now;
+            Console.WriteLine(dt.ToString());
+        */
+        if (!has_responded) {
+            // checken ob verbale reaktion
+            if (speech_receiver.recognizedWord == "") {
+                // user has not responded
+                // trial is invalid
+                response = "";
+            } else {
+                // user has responded
+                // store the word (only the first response is important)
+                response = speech_receiver.recognizedWord;
+                has_responded = true;
+            }
+        }
         if (target_position.bounds.Contains(cylinder.position)) {
             if (!coroutine_running) {
                 coroutine = StartCoroutine(CheckPositionOverTime(duration));
@@ -88,9 +111,10 @@ public class StateCheckActionPerformed : MonoBehaviour, IState {
         }
         text.text = "Fertig";
 
-        Debug.Log("You said the word: " + speech_receiver.recognizedWord);
-        obj_rotation = cylinder.transform.rotation.eulerAngles.z == 180 ? "upside down" : "richtig rum";
-        
+        Debug.Log("You said the word: " + response);
+        obj_rotation = cylinder.transform.rotation.eulerAngles.z == 180 ? "upside down" : "normal";
+        has_responded = false; // reset
+
         next_state = state_goodbye.GetComponent<IState>();
         finished = true;
     }
