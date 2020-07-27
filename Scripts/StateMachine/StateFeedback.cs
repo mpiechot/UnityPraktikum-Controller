@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+using System.IO;
+using System;
 public class StateFeedback : MonoBehaviour,IState
 {
     public TextMeshProUGUI text;
@@ -19,7 +20,6 @@ public class StateFeedback : MonoBehaviour,IState
     void Awake()
     {
         state_renderer = GetComponentInChildren<SpriteRenderer>();
-        state_renderer.material.color = Color.blue;
 
         if (edgePrefab != null)
         {
@@ -36,36 +36,34 @@ public class StateFeedback : MonoBehaviour,IState
 
     public void Enter()
     {
+        if(state_renderer == null){
+            state_renderer = GetComponentInChildren<SpriteRenderer>();
+        }
         state_renderer.material.color = Color.red;
 
         Debug.Log("Entered State StateFeedback");
 
-        //check, if experiment is finish
-        if(isExperimentOver()){
-            //next_state = ...;
-            finished = true;
-        }
-        else{
-            // Set text color
-            Color color = Color.black;
-            // Set alpha value
-            color.a = 1;
-            // Set text which will be displayed
-            text.text = "Das hast du toll gemacht. Drücke Leertaste für den nächsten Durchgang.";
-            text.color = color;
-        }
+        
+        // Set text color
+        Color color = Color.black;
+        // Set alpha value
+        color.a = 1;
+        // Set text which will be displayed
+        text.text = "Das hast du toll gemacht. Drücke Leertaste für den nächsten Durchgang." + (StateMachine.trialPhase ? " Oder drücke X um die Übungsphase zu beenden" : "");
+        text.color = color;
+        
     }
  
     public void Execute()
     {
-        if(!isExperimentOver()){
-            if (Input.GetKeyDown("space"))
-            {
-                print("space key was pressed");
-                next_state = init.GetComponent<IState>();
-                finished = true;
-            }
+        
+        if (Input.GetKeyDown("space"))
+        {
+            print("space key was pressed");
+            next_state = init.GetComponent<IState>();
+            finished = true;
         }
+        
     }
  
     public void Exit()
@@ -76,14 +74,14 @@ public class StateFeedback : MonoBehaviour,IState
         Experiment current_experiment = InformationManager.actual_experiment;
         List<Vector3> hand_positions = InformationManager.actual_positions;
         finished = false;
-        //reset InformationManager?
-        current_experiment.SuccessfulFinished = true;
+
+        if(!StateMachine.trialPhase){
+            File.AppendAllText(InformationManager.filename, InformationManager.actual_experiment.ToString() + Environment.NewLine);
+        }
     }
 
 
-    public bool isExperimentOver(){
-        return false;
-    }
+    
 
     
 

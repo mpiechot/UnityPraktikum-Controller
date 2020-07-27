@@ -16,7 +16,6 @@ public class EnableGlassesState : MonoBehaviour,IState
     void Awake()
     {
         state_renderer = GetComponentInChildren<SpriteRenderer>();
-        state_renderer.material.color = Color.blue;
 
         if (edgePrefab != null)
         {
@@ -33,6 +32,9 @@ public class EnableGlassesState : MonoBehaviour,IState
 
     public void Enter()
     {
+        if(state_renderer == null){
+            state_renderer = GetComponentInChildren<SpriteRenderer>();
+        }
         state_renderer.material.color = Color.red;
         return;
     }

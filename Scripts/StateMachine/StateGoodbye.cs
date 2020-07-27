@@ -16,7 +16,6 @@ public class StateGoodbye : MonoBehaviour, IState {
     void Awake()
     {
         state_renderer = GetComponentInChildren<SpriteRenderer>();
-        state_renderer.material.color = Color.blue;
 
         if (edgePrefab != null)
         {
@@ -32,6 +31,9 @@ public class StateGoodbye : MonoBehaviour, IState {
     }
 
     public void Enter() {
+        if(state_renderer == null){
+            state_renderer = GetComponentInChildren<SpriteRenderer>();
+        }
         state_renderer.material.color = Color.red;
         Debug.Log("Enter: StateGoodbye");
         text.text = "Enter Goodbye State";

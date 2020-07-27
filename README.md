@@ -61,13 +61,14 @@
 * States in UI verschieben? => LineRenderer für UI?
 * UI Größe, Farben, Schrift, Text anpassen?
 * States Beschriften?
-* Lichtreiz auch am Cylinder rechts und links anbringen statt Farbe der StartArea zu ändern?
 * Kamera besser ausrichten? Top-Down?
-* Feedback State noch die Daten für den aktuellen Durchlauf extern abspeichern
 
 ## ToDos
 * Skalierungsfaktor für das Tracking ermitteln
 * Übungstrails machen
-* Timestamp aufzeichnen im InformationManager
-* Datei anlegen anhand InformationManager Daten
-* Spracheingabe Timer
+- Timestamp aufzeichnen im InformationManager
+- Datei anlegen anhand InformationManager Daten
+- Spracheingabe Timer
+- Handpositionen speichern
+* Lichtreiz auch am Cylinder rechts und links anbringen statt Farbe der StartArea zu ändern?
+

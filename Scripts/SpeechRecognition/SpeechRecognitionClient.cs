@@ -26,6 +26,8 @@ public class SpeechRecognitionClient : MonoBehaviour {
 	private DateTime wordStartTime;
 	//recognized Word
 	public String recognizedWord = "";
+
+	public bool record;
 	// local network infos, are obtained via default API calls
 	private string localIP = String.Empty;
 	private string hostname;
@@ -60,7 +62,9 @@ public class SpeechRecognitionClient : MonoBehaviour {
 				byte[] data = client.Receive(ref anyIP);
 				this.udpMessage = Encoding.ASCII.GetString(data);
 				// obtain data
-				this.ParseMsg(udpMessage);
+				if(record){
+					this.ParseMsg(udpMessage);
+				}
 				//Debug.Log(udpMessage);
 				String test = GetWord(udpMessage);
 				Debug.Log(test);

@@ -21,7 +21,6 @@ public class InitState : MonoBehaviour,IState
     void Awake()
     {
         state_renderer = GetComponentInChildren<SpriteRenderer>();
-        state_renderer.material.color = Color.blue;
 
         if (edgePrefab != null)
         {
@@ -38,6 +37,11 @@ public class InitState : MonoBehaviour,IState
     }
     public void Enter()
     {
+        if(state_renderer == null){
+            Debug.Log("............");
+            state_renderer = GetComponentInChildren<SpriteRenderer>();
+            Debug.Log(state_renderer);
+        }
         state_renderer.material.color = Color.red;
         StopAllCoroutines();
         if(experiments.Count == 0)
@@ -52,6 +56,7 @@ public class InitState : MonoBehaviour,IState
         Experiment current_experiment = InformationManager.actual_experiment;
         if (current_experiment != null && !current_experiment.SuccessfulFinished)
         {
+            current_experiment = new Experiment(current_experiment.finger_stimulation,current_experiment.light_effect_side,current_experiment.stimulation_start, current_experiment.object_color);
             experiments.Add(current_experiment);
         }
         currentExperimentID++;

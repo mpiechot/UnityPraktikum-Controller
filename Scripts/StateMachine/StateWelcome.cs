@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
+using System.IO;
 
 public class StateWelcome : MonoBehaviour, IState {
 
@@ -18,7 +20,6 @@ public class StateWelcome : MonoBehaviour, IState {
     void Awake()
     {
         state_renderer = GetComponentInChildren<SpriteRenderer>();
-        state_renderer.material.color = Color.blue;
 
         if (edgePrefab != null)
         {
@@ -34,9 +35,21 @@ public class StateWelcome : MonoBehaviour, IState {
     }
 
     public void Enter() {
+        if(state_renderer == null){
+            state_renderer = GetComponentInChildren<SpriteRenderer>();
+        }
         state_renderer.material.color = Color.red;
         Debug.Log("Enter: StateWelcome");
         text.text = "Hi wie gehts. Drücke n zum Starten!";
+
+        DateTime t = DateTime.Now;
+        string newFileName = t.Year + "-" + t.Month + "-" + t.Day + "_" + t.Hour + "-" + t.Minute + "-" + t.Second + ".csv";
+        string clientHeader = "Fingerstimulation;LightEffectSide;SimulationStart;ObjectColor;SuccessfulFinished;HandPositions" + Environment.NewLine;
+
+        InformationManager.filename = newFileName;
+
+        File.WriteAllText(newFileName, clientHeader);
+        
     }
 
     public void Execute() {

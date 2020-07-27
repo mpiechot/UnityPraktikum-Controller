@@ -21,7 +21,6 @@ public class StateDisableGlasses : MonoBehaviour,IState
     void Awake()
     {
         state_renderer = GetComponentInChildren<SpriteRenderer>();
-        state_renderer.material.color = Color.blue;
 
         if (edgePrefab != null)
         {
@@ -38,6 +37,9 @@ public class StateDisableGlasses : MonoBehaviour,IState
 
     public void Enter()
     {
+        if(state_renderer == null){
+            state_renderer = GetComponentInChildren<SpriteRenderer>();
+        }
         state_renderer.material.color = Color.red;
         Debug.Log("Entered State DisableGlasses");
     }

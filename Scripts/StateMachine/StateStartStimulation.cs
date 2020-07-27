@@ -25,7 +25,6 @@ public class StateStartStimulation : MonoBehaviour, IState
     void Awake()
     {
         state_renderer = GetComponentInChildren<SpriteRenderer>();
-        state_renderer.material.color = Color.blue;
 
         if (edgePrefab != null)
         {
@@ -41,6 +40,9 @@ public class StateStartStimulation : MonoBehaviour, IState
     }
     public void Enter()
     {
+        if(state_renderer == null){
+            state_renderer = GetComponentInChildren<SpriteRenderer>();
+        }
         state_renderer.material.color = Color.red;
         return;
     }
@@ -81,6 +83,11 @@ public class StateStartStimulation : MonoBehaviour, IState
         ChangeFingerLightState(effect_side,true);
         ChangeStimulationState(finger, true);
         speech_receiver.recognizedWord = "";
+
+        InformationManager.timestamp = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+        Debug.Log(InformationManager.timestamp);
+        speech_receiver.record = true;
+
         yield return new WaitForSeconds(stimulationTime);
         ChangeStimulationState(finger, false);
         yield return new WaitForSeconds(1f);
@@ -97,6 +104,12 @@ public class StateStartStimulation : MonoBehaviour, IState
         ChangeStimulationState(finger, true);
         speech_receiver.recognizedWord = "";
         // TODO: Zeitstempel (nur erste Variable)
+
+        InformationManager.timestamp = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+        Debug.Log(InformationManager.timestamp);
+        speech_receiver.record = true;
+
+
         yield return new WaitForSeconds(stimulationTime);
         ChangeStimulationState(finger, false);
         yield return new WaitForSeconds(1f);

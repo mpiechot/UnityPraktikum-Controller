@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class StateCheckActionPerformed : MonoBehaviour, IState {
     
@@ -14,9 +15,15 @@ public class StateCheckActionPerformed : MonoBehaviour, IState {
     public Collider target_position;
     public Transform cylinder;
 
+    public Transform hand;
+
     public MeshRenderer cylinder_renderer;
 
     public TextMeshProUGUI text;
+
+    public float epsilon = 10;
+
+    public bool wordRecordedInTime = false;
 
     public int duration;
     private Coroutine coroutine;
@@ -26,13 +33,12 @@ public class StateCheckActionPerformed : MonoBehaviour, IState {
     private bool has_responded;
     private string response;
 
-    private string obj_rotation;
+    private PossibleObjectColor obj_rotation;
     private SpriteRenderer state_renderer;
 
     void Awake()
     {
         state_renderer = GetComponentInChildren<SpriteRenderer>();
-        state_renderer.material.color = Color.blue;
 
         if (edgePrefab != null)
         {
@@ -48,6 +54,9 @@ public class StateCheckActionPerformed : MonoBehaviour, IState {
     }
 
     public void Enter() {
+        if(state_renderer == null){
+            state_renderer = GetComponentInChildren<SpriteRenderer>();
+        }
         state_renderer.material.color = Color.red;
         Debug.Log("Enter: StateActionPerformed");
         text.text = "Bewege den Zylinder in die Zielposition";
@@ -67,6 +76,9 @@ public class StateCheckActionPerformed : MonoBehaviour, IState {
             DateTime dt = DateTime.Now;
             Console.WriteLine(dt.ToString());
         */
+
+        InformationManager.actual_experiment.HandPositions.Add(hand.position);
+
         if (!has_responded) {
             // checken ob verbale reaktion
             if (speech_receiver.recognizedWord == "") {
@@ -78,6 +90,18 @@ public class StateCheckActionPerformed : MonoBehaviour, IState {
                 // store the word (only the first response is important)
                 response = speech_receiver.recognizedWord;
                 has_responded = true;
+
+                //InformationManager.timestamp = DateTime.Now;
+                long passed_time = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond - InformationManager.timestamp;
+                if(passed_time <= 2000){
+                    InformationManager.actual_experiment.ReactionTime = passed_time;
+                    InformationManager.actual_experiment.SpokenWord = response;
+                    wordRecordedInTime = true;
+                    //InformationManager.actual_experiment.SuccessfulFinished = true;
+                }
+
+                Debug.Log(InformationManager.timestamp);
+                speech_receiver.record = true;
             }
         }
         if (target_position.bounds.Contains(cylinder.position)) {
@@ -112,8 +136,16 @@ public class StateCheckActionPerformed : MonoBehaviour, IState {
         text.text = "Fertig";
 
         Debug.Log("You said the word: " + response);
-        obj_rotation = cylinder.transform.rotation.eulerAngles.z == 180 ? "upside down" : "normal";
+        
+        obj_rotation = Mathf.Abs(180 - cylinder.transform.rotation.eulerAngles.z) <= epsilon ? PossibleObjectColor.YELLOW : PossibleObjectColor.GREEN;
         has_responded = false; // reset
+        
+        if(wordRecordedInTime && obj_rotation == InformationManager.actual_experiment.object_color){
+            InformationManager.actual_experiment.SuccessfulFinished = true;
+        }
+
+        wordRecordedInTime = false;
+        
 
         next_state = state_goodbye.GetComponent<IState>();
         finished = true;
