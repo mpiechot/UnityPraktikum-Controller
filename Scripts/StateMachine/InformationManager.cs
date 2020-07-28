@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System;
 using UnityEngine;
+using System.Diagnostics;
 
 public static class InformationManager 
 {
 
-    public static long timestamp;
+    public static Stopwatch sw = new Stopwatch();
 
     public static string filename;
 

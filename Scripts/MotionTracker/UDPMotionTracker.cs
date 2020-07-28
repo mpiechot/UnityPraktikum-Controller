@@ -25,6 +25,15 @@ public class UDPMotionTracker : MonoBehaviour
     public Transform cylinder_transform;
     private Vector3 cylinder_position;
     private Vector3 cylinder_rotation;
+
+
+    public Vector3 scale_hand;
+
+    public Vector3 scale_cylinder;
+
+    public Vector3 translate_hand;
+
+    public Vector3 translate_cylinder;
     
     // indicates when to stop listening for udp datagrams
     private bool receive_stop = false;
@@ -82,9 +91,9 @@ public class UDPMotionTracker : MonoBehaviour
             Debug.Log(float.Parse(data[0]));
             if(float.Parse(data[0]) == 0){
                 //extract real position out of the received string and set the global position variable accordingly
-                hand_position.x = float.Parse(data[1], CultureInfo.InvariantCulture);
-                hand_position.y = float.Parse(data[2], CultureInfo.InvariantCulture);
-                hand_position.z = float.Parse(data[3], CultureInfo.InvariantCulture);
+                hand_position.x = float.Parse(data[1], CultureInfo.InvariantCulture)/scale_hand.x + translate_hand.x;
+                hand_position.y = float.Parse(data[2], CultureInfo.InvariantCulture)/scale_hand.y + translate_hand.y;
+                hand_position.z = float.Parse(data[3], CultureInfo.InvariantCulture)/scale_hand.z + translate_hand.z;
 
                 //set global bool true which tells the update method that a message was received and processed
                 //-> rdy to be used further on in the next update invocation
@@ -92,9 +101,9 @@ public class UDPMotionTracker : MonoBehaviour
             }
             else if(float.Parse(data[0]) == 10){ //currently dont know why its 10 and not 1...
                 //extract real position out of the received string and set the global position variable accordingly
-                cylinder_position.x = float.Parse(data[1], CultureInfo.InvariantCulture);
-                cylinder_position.y = float.Parse(data[2], CultureInfo.InvariantCulture);
-                cylinder_position.z = float.Parse(data[3], CultureInfo.InvariantCulture);
+                cylinder_position.x = float.Parse(data[1], CultureInfo.InvariantCulture)/scale_cylinder.x + translate_cylinder.x;
+                cylinder_position.y = float.Parse(data[2], CultureInfo.InvariantCulture)/scale_cylinder.y + translate_cylinder.y;
+                cylinder_position.z = float.Parse(data[3], CultureInfo.InvariantCulture)/scale_cylinder.z + translate_cylinder.z;
                 
 
                 cylinder_rotation.x = float.Parse(data[4], CultureInfo.InvariantCulture);

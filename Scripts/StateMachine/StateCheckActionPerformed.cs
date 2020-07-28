@@ -89,19 +89,22 @@ public class StateCheckActionPerformed : MonoBehaviour, IState {
                 // user has responded
                 // store the word (only the first response is important)
                 response = speech_receiver.recognizedWord;
+                Debug.Log(response);
                 has_responded = true;
 
                 //InformationManager.timestamp = DateTime.Now;
-                long passed_time = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond - InformationManager.timestamp;
-                if(passed_time <= 2000){
-                    InformationManager.actual_experiment.ReactionTime = passed_time;
-                    InformationManager.actual_experiment.SpokenWord = response;
+                InformationManager.sw.Stop();
+                double passed_time = InformationManager.sw.ElapsedMilliseconds;
+                InformationManager.actual_experiment.ReactionTime = passed_time;
+                InformationManager.actual_experiment.SpokenWord = response;
+                Debug.Log("passed time : " + passed_time);
+
+                if(passed_time <= 3000){
                     wordRecordedInTime = true;
                     //InformationManager.actual_experiment.SuccessfulFinished = true;
                 }
 
-                Debug.Log(InformationManager.timestamp);
-                speech_receiver.record = true;
+                speech_receiver.record = false;
             }
         }
         if (target_position.bounds.Contains(cylinder.position)) {
@@ -138,14 +141,15 @@ public class StateCheckActionPerformed : MonoBehaviour, IState {
         Debug.Log("You said the word: " + response);
         
         obj_rotation = Mathf.Abs(180 - cylinder.transform.rotation.eulerAngles.z) <= epsilon ? PossibleObjectColor.YELLOW : PossibleObjectColor.GREEN;
-        has_responded = false; // reset
-        
-        if(wordRecordedInTime && obj_rotation == InformationManager.actual_experiment.object_color){
+
+        PossibleFingerStimulations pfs = (response == "daumen") ? PossibleFingerStimulations.THUMB : PossibleFingerStimulations.INDEX;        
+        if(wordRecordedInTime && obj_rotation == InformationManager.actual_experiment.object_color && pfs == InformationManager.actual_experiment.finger_stimulation){
             InformationManager.actual_experiment.SuccessfulFinished = true;
         }
-
+        has_responded = false; // reset
         wordRecordedInTime = false;
-        
+        response = "";
+        speech_receiver.Reset();
 
         next_state = state_goodbye.GetComponent<IState>();
         finished = true;

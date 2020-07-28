@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Diagnostics;
 
 public class StateStartStimulation : MonoBehaviour, IState
 {
@@ -84,8 +85,8 @@ public class StateStartStimulation : MonoBehaviour, IState
         ChangeStimulationState(finger, true);
         speech_receiver.recognizedWord = "";
 
-        InformationManager.timestamp = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
-        Debug.Log(InformationManager.timestamp);
+        InformationManager.sw = new Stopwatch();
+        InformationManager.sw.Start();
         speech_receiver.record = true;
 
         yield return new WaitForSeconds(stimulationTime);
@@ -105,8 +106,8 @@ public class StateStartStimulation : MonoBehaviour, IState
         speech_receiver.recognizedWord = "";
         // TODO: Zeitstempel (nur erste Variable)
 
-        InformationManager.timestamp = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
-        Debug.Log(InformationManager.timestamp);
+        InformationManager.sw = new Stopwatch();
+        InformationManager.sw.Start();
         speech_receiver.record = true;
 
 
@@ -126,7 +127,7 @@ public class StateStartStimulation : MonoBehaviour, IState
 
     private void ChangeStimulationState(PossibleFingerStimulations finger, bool state)
     {
-        Debug.Log("ChangeStimulationState needs to be implementet!");
+        UnityEngine.Debug.Log("ChangeStimulationState needs to be implementet!");
         if (state)
         {
             hand.GetComponent<MeshRenderer>().material.color = Color.yellow;
@@ -140,7 +141,7 @@ public class StateStartStimulation : MonoBehaviour, IState
 
     private void ChangeFingerLightState(PossibleLightEffectSide effect_side, bool state)
     {
-        Debug.Log("ChangeFingerLightState needs to be implementet!");
+        UnityEngine.Debug.Log("ChangeFingerLightState needs to be implementet!");
         if (state)
         {
             start.GetComponent<MeshRenderer>().material.color = Color.red;

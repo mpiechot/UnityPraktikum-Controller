@@ -49,7 +49,7 @@ public class StateFeedback : MonoBehaviour,IState
         // Set alpha value
         color.a = 1;
         // Set text which will be displayed
-        text.text = "Das hast du toll gemacht. Drücke Leertaste für den nächsten Durchgang." + (StateMachine.trialPhase ? " Oder drücke X um die Übungsphase zu beenden" : "");
+        text.text = "Sehr schön!. Drücke Leertaste für den nächsten Durchgang." + (StateMachine.trialPhase ? " Oder drücke X um die Übung zu beenden" : "");
         text.color = color;
         
     }

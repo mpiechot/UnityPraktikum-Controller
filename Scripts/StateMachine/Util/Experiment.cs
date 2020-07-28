@@ -11,7 +11,7 @@ public class Experiment
 
     public List<Vector3> HandPositions {get;set;}
 
-    public long ReactionTime {get; set;}
+    public double ReactionTime {get; set;}
 
     public string SpokenWord {get; set;}
 

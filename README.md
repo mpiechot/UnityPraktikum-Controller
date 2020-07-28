@@ -64,8 +64,8 @@
 * Kamera besser ausrichten? Top-Down?
 
 ## ToDos
-* Skalierungsfaktor für das Tracking ermitteln
-* Übungstrails machen
+- Skalierungsfaktor für das Tracking ermitteln
+- Übungstrails machen
 - Timestamp aufzeichnen im InformationManager
 - Datei anlegen anhand InformationManager Daten
 - Spracheingabe Timer
