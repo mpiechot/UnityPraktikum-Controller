@@ -693,6 +693,24 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4278190080
       objectReference: {fileID: 0}
+    - target: {fileID: 1459760383, guid: f99abf60dcc703f4ca0b2ba3ef7e75f2, type: 3}
+      propertyPath: m_text
+      value: 'Experiment
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1459760383, guid: f99abf60dcc703f4ca0b2ba3ef7e75f2, type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1459760383, guid: f99abf60dcc703f4ca0b2ba3ef7e75f2, type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1459760383, guid: f99abf60dcc703f4ca0b2ba3ef7e75f2, type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2562907587729954883, guid: f99abf60dcc703f4ca0b2ba3ef7e75f2,
         type: 3}
       propertyPath: m_SizeDelta.x
