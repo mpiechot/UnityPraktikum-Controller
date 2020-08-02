@@ -72,3 +72,12 @@
 - Handpositionen speichern
 * Lichtreiz auch am Cylinder rechts und links anbringen statt Farbe der StartArea zu ändern?
 
+
+## Vortrag
+* Brainstorming für die Gliederung:
+      > Aufgabenstellung (also was Johannes am Anfang in seiner Präsentation gezeigt hat)
+      > Umsetzung mit StateMachine (Interface IState, Controller, einzelne States)
+      > ...
+      > Schwierigkeiten/Probleme und deren Lösungen
+      > Demonstration
+      > Fazit (falls man diesbezüglich großartig ein Fazit ziehen kann?)
