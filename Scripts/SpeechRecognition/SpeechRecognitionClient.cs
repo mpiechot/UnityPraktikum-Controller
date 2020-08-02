@@ -27,7 +27,7 @@ public class SpeechRecognitionClient : MonoBehaviour {
 	//recognized Word
 	public String recognizedWord = "";
 
-	public bool record;
+	public bool record; // false: prevents parsing of incoming user responses
 	// local network infos, are obtained via default API calls
 	private string localIP = String.Empty;
 	private string hostname;
