@@ -70,14 +70,17 @@
 - Datei anlegen anhand InformationManager Daten
 - Spracheingabe Timer
 - Handpositionen speichern
-* Lichtreiz auch am Cylinder rechts und links anbringen statt Farbe der StartArea zu ändern?
+- Lichtreiz auch am Cylinder rechts und links anbringen statt Farbe der StartArea zu ändern?
 
 
 ## Vortrag
 * Brainstorming für die Gliederung:
       > Aufgabenstellung (also was Johannes am Anfang in seiner Präsentation gezeigt hat)
       > Umsetzung mit StateMachine (Interface IState, Controller, einzelne States)
-      > ...
-      > Schwierigkeiten/Probleme und deren Lösungen
+        > Was ist eine StateMachine?
+        > Code vom Interface (Wie ist ein State aufgebaut?)
+        > Schaubild Statemachine
+      > ... (<-- Das ist Johannes Part)
       > Demonstration
-      > Fazit (falls man diesbezüglich großartig ein Fazit ziehen kann?)
+      > Schwierigkeiten/Probleme und deren Lösungen
+      > Fazit

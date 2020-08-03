@@ -47,7 +47,7 @@ public class StateWelcome : MonoBehaviour, IState {
         // create a file with metadata
         DateTime t = DateTime.Now;
         string newFileName = t.Year + "-" + t.Month + "-" + t.Day + "_" + t.Hour + "-" + t.Minute + "-" + t.Second + ".csv";
-        string clientHeader = "Fingerstimulation;LightEffectSide;SimulationStart;ObjectColor;SuccessfulFinished;ReactionTime;SpokenWord;HandPositions" + Environment.NewLine;
+        string clientHeader = "Fingerstimulation;LightEffectSide;SimulationStart;ObjectColor;SuccessfulFinished;ErrorCode;ReactionTime;SpokenWord;HandPositions" + Environment.NewLine;
         InformationManager.filename = newFileName;
         File.WriteAllText(newFileName, clientHeader);
     }

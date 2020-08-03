@@ -146,6 +146,23 @@ public class StateCheckActionPerformed : MonoBehaviour, IState {
         if(wordRecordedInTime && obj_rotation == InformationManager.actual_experiment.object_color && pfs == InformationManager.actual_experiment.finger_stimulation){
             InformationManager.actual_experiment.SuccessfulFinished = true;
         }
+        else
+        {
+            String errors = "";
+            if (!wordRecordedInTime)
+            {
+                errors += "Reactiontime too slow.";
+            }
+            if (obj_rotation != InformationManager.actual_experiment.object_color)
+            {
+                errors += "Wrong rotation.";
+            }
+            if (pfs != InformationManager.actual_experiment.finger_stimulation)
+            {
+                errors += "Response wrong.";
+            }
+            InformationManager.actual_experiment.ErrorCode = errors;
+        }
         
         // reset:
         has_responded = false;

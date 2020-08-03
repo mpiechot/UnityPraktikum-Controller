@@ -10,6 +10,8 @@ public class StateStartStimulation : MonoBehaviour, IState
     public GameObject edgePrefab;
 
     public GameObject hand;
+    public GameObject left;
+    public GameObject right;
     public GameObject start;
     public GameObject target;
 
@@ -144,11 +146,25 @@ public class StateStartStimulation : MonoBehaviour, IState
         UnityEngine.Debug.Log("ChangeFingerLightState needs to be implementet!");
         if (state)
         {
-            start.GetComponent<MeshRenderer>().material.color = Color.red;
+            if(effect_side == PossibleLightEffectSide.LEFT)
+            {
+                left.GetComponent<MeshRenderer>().material.color = Color.red;
+            }
+            else
+            {
+                right.GetComponent<MeshRenderer>().material.color = Color.red;
+            }
         }
         else
         {
-            start.GetComponent<MeshRenderer>().material.color = Color.gray;
+            if(effect_side == PossibleLightEffectSide.LEFT)
+            {
+                left.GetComponent<MeshRenderer>().material.color = Color.gray;
+            }
+            else
+            {
+                right.GetComponent<MeshRenderer>().material.color = Color.gray;
+            }
         }
         return;
     }
