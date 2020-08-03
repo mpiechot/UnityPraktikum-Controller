@@ -6,34 +6,41 @@ using System.Diagnostics;
 
 public class StateStartStimulation : MonoBehaviour, IState
 {
-    public GameObject nextStateName; //TODO insert fancy name here!
+    //Visualization
+    private SpriteRenderer state_renderer;
+
     public GameObject edgePrefab;
 
-    public GameObject hand;
-    public GameObject left;
-    public GameObject right;
-    public GameObject start;
-    public GameObject target;
-
+    //StateMachine
+    public GameObject actionPerformedState;
     public bool finished { get; set; }
     public IState next_state { get; set; }
-    public float delay = 1f;
-    public float stimulationTime = 2f;
 
+    //State Reference Objects
+    public GameObject hand;
+    public GameObject leftLightEffectSide;
+    public GameObject rightLightEffectSide;
+    public GameObject startArea;
+    public GameObject targetArea;
     public SpeechRecognitionClient speech_receiver;
 
+    //State Settings
+    public float instantStimulationDelay = 1f;
+    public float stimulationTime = 2f;
+
     private const float HALF_WAY_PERCENTAGE = 50f;
-    private SpriteRenderer state_renderer;
 
     void Awake()
     {
+        //Visualize StateMachine
         state_renderer = GetComponentInChildren<SpriteRenderer>();
 
         if (edgePrefab != null)
         {
-            AddEdge(nextStateName.transform.position);
+            AddEdge(actionPerformedState.transform.position);
         }
     }
+    //Draw an Edge using the LineRenderer from this state to its targetState
     void AddEdge(Vector3 target)
     {
         GameObject newEdge = Instantiate(edgePrefab, transform);
@@ -53,15 +60,25 @@ public class StateStartStimulation : MonoBehaviour, IState
     public void Execute()
     {
         Experiment current_experiment = InformationManager.actual_experiment;
+
         StartCoroutineOnExperimentSetting(current_experiment);
-        if (nextStateName != null)
+
+        if (actionPerformedState != null)
         {
-            next_state = nextStateName.GetComponent<IState>();
+            next_state = actionPerformedState.GetComponent<IState>();
             finished = true;
         }
         return;
     }
 
+    public void Exit()
+    {
+        state_renderer.material.color = Color.blue;
+        finished = false;
+        return;
+    }
+
+    //Helperfunctions
     private void StartCoroutineOnExperimentSetting(Experiment experiment)
     {
         if(experiment.stimulation_start == PossibleStimulationStart.INSTANT)
@@ -73,16 +90,10 @@ public class StateStartStimulation : MonoBehaviour, IState
             StartCoroutine(StimulationAfterHalfWay(experiment.light_effect_side, experiment.finger_stimulation));
         }
     }
-    public void Exit()
-    {
-        state_renderer.material.color = Color.blue;
-        finished = false;
-        return;
-    }
 
     private IEnumerator InstantStimulation(PossibleLightEffectSide effect_side, PossibleFingerStimulations finger)
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(instantStimulationDelay);
         ChangeFingerLightState(effect_side,true);
         ChangeStimulationState(finger, true);
         speech_receiver.recognizedWord = "";
@@ -106,12 +117,10 @@ public class StateStartStimulation : MonoBehaviour, IState
         ChangeFingerLightState(effect_side, true);
         ChangeStimulationState(finger, true);
         speech_receiver.recognizedWord = "";
-        // TODO: Zeitstempel (nur erste Variable)
 
         InformationManager.sw = new Stopwatch();
         InformationManager.sw.Start();
         speech_receiver.record = true;
-
 
         yield return new WaitForSeconds(stimulationTime);
         ChangeStimulationState(finger, false);
@@ -121,15 +130,17 @@ public class StateStartStimulation : MonoBehaviour, IState
 
     private bool HalfWayDone()
     {
-        float distance_done = Vector3.Distance(start.transform.position, hand.transform.position);
-        float distance_total = Vector3.Distance(start.transform.position, target.transform.position);
+        float distance_done = Vector3.Distance(startArea.transform.position, hand.transform.position);
+        float distance_total = Vector3.Distance(startArea.transform.position, targetArea.transform.position);
         float way_percentage_done = (100 * distance_done) / distance_total;
         return  way_percentage_done > HALF_WAY_PERCENTAGE;
     }
 
+
+    //Visualize Changes in Unity
+    //Change these Methods to send the data to an arduino for example
     private void ChangeStimulationState(PossibleFingerStimulations finger, bool state)
     {
-        UnityEngine.Debug.Log("ChangeStimulationState needs to be implementet!");
         if (state)
         {
             hand.GetComponent<MeshRenderer>().material.color = Color.yellow;
@@ -143,27 +154,26 @@ public class StateStartStimulation : MonoBehaviour, IState
 
     private void ChangeFingerLightState(PossibleLightEffectSide effect_side, bool state)
     {
-        UnityEngine.Debug.Log("ChangeFingerLightState needs to be implementet!");
         if (state)
         {
             if(effect_side == PossibleLightEffectSide.LEFT)
             {
-                left.GetComponent<MeshRenderer>().material.color = Color.red;
+                leftLightEffectSide.GetComponent<MeshRenderer>().material.color = Color.red;
             }
             else
             {
-                right.GetComponent<MeshRenderer>().material.color = Color.red;
+                rightLightEffectSide.GetComponent<MeshRenderer>().material.color = Color.red;
             }
         }
         else
         {
             if(effect_side == PossibleLightEffectSide.LEFT)
             {
-                left.GetComponent<MeshRenderer>().material.color = Color.gray;
+                leftLightEffectSide.GetComponent<MeshRenderer>().material.color = Color.gray;
             }
             else
             {
-                right.GetComponent<MeshRenderer>().material.color = Color.gray;
+                rightLightEffectSide.GetComponent<MeshRenderer>().material.color = Color.gray;
             }
         }
         return;

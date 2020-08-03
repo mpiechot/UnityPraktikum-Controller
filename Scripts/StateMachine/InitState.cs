@@ -1,25 +1,28 @@
 ﻿using Array = System.Array;
 using Enum = System.Enum;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class InitState : MonoBehaviour,IState
 {
-    public int numberOfRuns = 10;
-    public GameObject checkTargetPositionState;
-    public GameObject doneState;
+    //Visualization
+    private SpriteRenderer state_renderer;
+
     public GameObject edgePrefab;
 
+    //StateMachine
+    public GameObject checkTargetPositionState;
+    public GameObject doneState;
     public bool finished {get;set;}
     public IState next_state{get;set;}
 
+    //Experiments
     private List<Experiment> experiments = new List<Experiment>();
     private int currentExperimentID = 0;
-    private SpriteRenderer state_renderer;
 
     void Awake()
     {
+        //Visualize StateMachine
         state_renderer = GetComponentInChildren<SpriteRenderer>();
 
         if (edgePrefab != null)
@@ -28,6 +31,7 @@ public class InitState : MonoBehaviour,IState
             AddEdge(doneState.transform.position);
         }
     }
+    //Draw an Edge using the LineRenderer from this state to its targetState
     void AddEdge(Vector3 target)
     {
         GameObject newEdge = Instantiate(edgePrefab, transform);
@@ -38,9 +42,7 @@ public class InitState : MonoBehaviour,IState
     public void Enter()
     {
         if(state_renderer == null){
-            Debug.Log("............");
             state_renderer = GetComponentInChildren<SpriteRenderer>();
-            Debug.Log(state_renderer);
         }
         state_renderer.material.color = Color.red;
         StopAllCoroutines();
@@ -54,21 +56,24 @@ public class InitState : MonoBehaviour,IState
     public void Execute()
     {
         Experiment current_experiment = InformationManager.actual_experiment;
+        //Check if the last experiment was successufll, if not -> add this setup to the list again.
         if (current_experiment != null && !current_experiment.SuccessfulFinished)
         {
             current_experiment = new Experiment(current_experiment.finger_stimulation,current_experiment.light_effect_side,current_experiment.stimulation_start, current_experiment.object_color);
             experiments.Add(current_experiment);
         }
+        //Select the next Experiment Setup
         currentExperimentID++;
         if (currentExperimentID < experiments.Count)
         {
             InformationManager.actual_experiment = experiments[currentExperimentID];
-            Debug.Log("Count: " + currentExperimentID + ": " + experiments[currentExperimentID]);
+            Debug.Log("Experiment Number: " + currentExperimentID);
+            Debug.Log("Setup: " + experiments[currentExperimentID]);
             next_state = checkTargetPositionState.GetComponent<IState>();
         }
         else
         {
-            //Experiments finished
+            //All Experiments finished
             next_state = doneState.GetComponent<IState>();
         }
         finished = true;
@@ -89,7 +94,6 @@ public class InitState : MonoBehaviour,IState
         Array stimulation_starts = Enum.GetValues(typeof(PossibleStimulationStart));
         Array object_colors = Enum.GetValues(typeof(PossibleObjectColor));
 
-        int i = 0;
         foreach (PossibleFingerStimulations stimulation in stimulations)
         {
             foreach (PossibleLightEffectSide light_effect in light_effects)
@@ -98,7 +102,7 @@ public class InitState : MonoBehaviour,IState
                 {
                     foreach (PossibleObjectColor object_color in object_colors)
                     {
-                        for (int run = 0; run < numberOfRuns; run++)
+                        for (int run = 0; run < StateMachine.numberOfRuns; run++)
                         {
                             experiments.Add(new Experiment(stimulation, light_effect, stimulation_start, object_color));
                         }
@@ -107,13 +111,8 @@ public class InitState : MonoBehaviour,IState
             }
         }
         Shuffle();
-        //foreach(Experiment e in experiments)
-        //{
-        //    Debug.Log(e);
-        //}
     }
-    //TODO Maybe another shuffle algorihm? This one seems to be not that great :/
-    //TODO Link zur Quelle, Fisher-Yates 
+    //Source: https://answers.unity.com/questions/1189736/im-trying-to-shuffle-an-arrays-order.html
     private void Shuffle()
     {
         for (int i = 0; i < experiments.Count - 1; i++)
