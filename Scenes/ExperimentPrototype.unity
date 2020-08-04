@@ -176,6 +176,16 @@ PrefabInstance:
       propertyPath: scale_cylinder.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8544780097977620930, guid: 2b0b64add8753614a896490d564c3b10,
+        type: 3}
+      propertyPath: hand_transform
+      value: 
+      objectReference: {fileID: 1880730378}
+    - target: {fileID: 8544780097977620930, guid: 2b0b64add8753614a896490d564c3b10,
+        type: 3}
+      propertyPath: cylinder_transform
+      value: 
+      objectReference: {fileID: 966907472}
     - target: {fileID: 8544780097977620931, guid: 2b0b64add8753614a896490d564c3b10,
         type: 3}
       propertyPath: m_Name

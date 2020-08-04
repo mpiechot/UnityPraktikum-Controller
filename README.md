@@ -70,5 +70,6 @@
 - Datei anlegen anhand InformationManager Daten
 - Spracheingabe Timer
 - Handpositionen speichern
+* anstatt false - fehlercode angeben
 * Lichtreiz auch am Cylinder rechts und links anbringen statt Farbe der StartArea zu ändern?
 
