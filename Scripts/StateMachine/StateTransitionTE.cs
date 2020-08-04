@@ -1,3 +1,7 @@
+/*
+Just an intermediate state between trial and real experiments
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

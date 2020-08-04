@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class StateMachine : MonoBehaviour
 {
+    private IState currentState;
 
     public GameObject currentStateGameObject;
-    IState currentState;
+    public GameObject stateAfterTrial;
 
-    public static bool trialPhase = true; 
-    public GameObject s;
+    //Settings
+    public static bool trialPhase = true;
+    public static int numberOfRuns = 10;
     
     void Start(){
         if(currentStateGameObject != null){
@@ -20,7 +22,7 @@ public class StateMachine : MonoBehaviour
 
     void Update()
     {
-        
+        //Statemachine Logic
         if (currentState != null) {
             currentState.Execute();
             if(currentState.finished){
@@ -28,12 +30,13 @@ public class StateMachine : MonoBehaviour
             }
         }
 
+        //TrialPhase Logic ( Change to Experiment-Phase, if X is pressed
         if(trialPhase){
             if(Input.GetKeyDown(KeyCode.X)){
                 trialPhase = false;
                 currentState.Exit();
 
-                Debug.Log("Jetzt wirds ernst");
+                //State Visualization (Hide Trial-Statemachine, Show Experiment-Statemachine)
                 GameObject[] visuals = GameObject.FindGameObjectsWithTag("NonTrial"); 
                 for(int i = 0; i < visuals.Length; i++){
                     visuals[i].GetComponent<SpriteRenderer>().color = new Color(0,0,255,1);
@@ -43,12 +46,11 @@ public class StateMachine : MonoBehaviour
                     visuals[i].GetComponent<SpriteRenderer>().color = new Color(0,0,255,0);
                 }
 
-                currentState = s.GetComponent<IState>();
+                currentState = stateAfterTrial.GetComponent<IState>();
                 currentState.Enter();
             }
         }
     }
-
 
     public void ChangeState()
     {
@@ -57,6 +59,5 @@ public class StateMachine : MonoBehaviour
             currentState = currentState.next_state;
             currentState.Enter();
         }
-    }
-    
+    }  
 }

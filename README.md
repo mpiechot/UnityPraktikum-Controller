@@ -70,6 +70,18 @@
 - Datei anlegen anhand InformationManager Daten
 - Spracheingabe Timer
 - Handpositionen speichern
-* anstatt false - fehlercode angeben
-* Lichtreiz auch am Cylinder rechts und links anbringen statt Farbe der StartArea zu ändern?
+- anstatt false - fehlercode angeben
+- Lichtreiz auch am Cylinder rechts und links anbringen statt Farbe der StartArea zu ändern?
 
+
+## Vortrag
+* Brainstorming für die Gliederung:
+      > Aufgabenstellung (also was Johannes am Anfang in seiner Präsentation gezeigt hat)
+      > Umsetzung mit StateMachine (Interface IState, Controller, einzelne States)
+        > Was ist eine StateMachine?
+        > Code vom Interface (Wie ist ein State aufgebaut?)
+        > Schaubild Statemachine
+      > ... (<-- Das ist Johannes Part)
+      > Demonstration
+      > Schwierigkeiten/Probleme und deren Lösungen
+      > Fazit

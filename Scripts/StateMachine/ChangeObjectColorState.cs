@@ -5,18 +5,20 @@ using UnityEngine;
 
 public class ChangeObjectColorState : MonoBehaviour,IState
 {
-    public GameObject enableGlasses;
-    public GameObject edgePrefab;
+    //Visualization
+    private SpriteRenderer state_renderer;
 
+    public GameObject edgePrefab;
     public MeshRenderer cylinder_renderer;
 
+    //StateMachine
+    public GameObject enableGlasses;
     public bool finished { get; set; }
     public IState next_state { get; set; }
 
-    private SpriteRenderer state_renderer;
-
     void Awake()
     {
+        //Visualize StateMachine
         state_renderer = GetComponentInChildren<SpriteRenderer>();
 
         if (edgePrefab != null)
@@ -24,6 +26,7 @@ public class ChangeObjectColorState : MonoBehaviour,IState
             AddEdge(enableGlasses.transform.position);
         }
     }
+    //Draw an Edge using the LineRenderer from this state to its targetState
     void AddEdge(Vector3 target)
     {
         GameObject newEdge = Instantiate(edgePrefab, transform);
@@ -52,6 +55,14 @@ public class ChangeObjectColorState : MonoBehaviour,IState
         return;
     }
 
+    public void Exit()
+    {
+        state_renderer.material.color = Color.blue;
+        finished = false;
+        return;
+    }
+
+    //Change this Method to Send the object Color to an arduino for Example
     private void ChangeObjectColor(PossibleObjectColor object_color)
     {
         if(object_color == PossibleObjectColor.YELLOW){
@@ -62,12 +73,4 @@ public class ChangeObjectColorState : MonoBehaviour,IState
         }
         return;
     }
-
-    public void Exit()
-    {
-        state_renderer.material.color = Color.blue;
-        finished = false;
-        return;
-    }
-
 }

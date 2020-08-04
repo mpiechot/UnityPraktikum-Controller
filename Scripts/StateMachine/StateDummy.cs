@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿/*
+Dummy state just to show how to implement an exemplary state
+*/
+
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,6 +29,7 @@ public class StateDummy : MonoBehaviour,IState
 
     public void Execute()
     {
+        finished = true;
         return;
     }
 

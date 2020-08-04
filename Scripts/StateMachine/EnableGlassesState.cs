@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class EnableGlassesState : MonoBehaviour,IState
 {
-    public GameObject executionState;
+    //Visualization
+    private SpriteRenderer state_renderer;
+
     public GameObject edgePrefab;
     public Renderer glasses_renderer;
 
+    //StateMachine
+    public GameObject executionState;
     public bool finished { get; set; }
     public IState next_state { get; set; }
 
-    private SpriteRenderer state_renderer;
-
     void Awake()
     {
+        //Visualize StateMachine
         state_renderer = GetComponentInChildren<SpriteRenderer>();
 
         if (edgePrefab != null)
@@ -22,6 +25,7 @@ public class EnableGlassesState : MonoBehaviour,IState
             AddEdge(executionState.transform.position);
         }
     }
+    //Draw an Edge using the LineRenderer from this state to its targetState
     void AddEdge(Vector3 target)
     {
         GameObject newEdge = Instantiate(edgePrefab, transform);
@@ -47,18 +51,19 @@ public class EnableGlassesState : MonoBehaviour,IState
         return;
     }
 
+    public void Exit()
+    {
+        state_renderer.material.color = Color.blue;
+        finished = false;
+        return;
+    }
+
+    //Change this Method to Send the enable command to an arduino for Example
     private void EnableGlasses()
     {
         Color color = Color.red;
         color.a = 0f;
         glasses_renderer.material.color = color;
-        return;
-    }
-
-    public void Exit()
-    {
-        state_renderer.material.color = Color.blue;
-        finished = false;
         return;
     }
 }

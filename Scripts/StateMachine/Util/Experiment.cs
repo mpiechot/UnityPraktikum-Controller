@@ -8,6 +8,7 @@ public class Experiment
     public PossibleStimulationStart stimulation_start { get; }
     public PossibleObjectColor object_color { get; }
     public bool SuccessfulFinished { get; set; }
+    public string ErrorCode { get; set; }
 
     public List<Vector3> HandPositions {get;set;}
 
@@ -25,11 +26,12 @@ public class Experiment
         this.ReactionTime = -1;
         this.SpokenWord = "-";
         this.HandPositions = new List<Vector3>();
+        this.ErrorCode = "-";
     }
 
     public override string ToString()
     {
-        string experiment = finger_stimulation + ";" + light_effect_side + ";" + stimulation_start + ";" + object_color + ";" + SuccessfulFinished + ";" + ReactionTime + ";" + SpokenWord;
+        string experiment = finger_stimulation + ";" + light_effect_side + ";" + stimulation_start + ";" + object_color + ";" + SuccessfulFinished + ";" + ErrorCode + ";" + ReactionTime + ";" + SpokenWord;
         experiment += ";[";
         for(int i = 0; i < HandPositions.Count; i++){
             experiment += "(" + HandPositions[i].x + "," + HandPositions[i].y + "," + HandPositions[i].z + ")";

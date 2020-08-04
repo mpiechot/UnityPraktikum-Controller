@@ -1,3 +1,7 @@
+/*
+Just an intermediate state between welcome and trial experiments
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
