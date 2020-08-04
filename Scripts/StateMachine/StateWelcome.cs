@@ -5,6 +5,9 @@ using TMPro;
 using System;
 using System.IO;
 
+// This state is the first state. The user is welcomed (and the course of the experiment is explained).
+// The experiment starts by pressing the key "n".
+
 public class StateWelcome : MonoBehaviour, IState {
 
     public bool finished { get; set; } // true if current state is finished and ready to call its Exit() method

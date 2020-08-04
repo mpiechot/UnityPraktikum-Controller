@@ -4,6 +4,10 @@ using UnityEngine;
 using TMPro;
 using System;
 
+// This state checks whether the cylinder has been set to the target position. 
+// It also checks whether the rotation of the object was performed according to 
+// the stimulus and whether the subject reacted verbally within a given time.
+
 public class StateCheckActionPerformed : MonoBehaviour, IState {
     
     public bool finished { get; set; } // true if current state is finished and ready to call its Exit() method
@@ -38,6 +42,7 @@ public class StateCheckActionPerformed : MonoBehaviour, IState {
     public GameObject edgePrefab;
     private SpriteRenderer state_renderer;
 
+    // Initializes the edges of the visual representation of the states
     void Awake() {
         state_renderer = GetComponentInChildren<SpriteRenderer>();
         if (edgePrefab != null) {
@@ -53,6 +58,8 @@ public class StateCheckActionPerformed : MonoBehaviour, IState {
         arrow.ArrowTarget = target;
     }
 
+    // Updates the visual representation of the states.
+    // Furthermore gives instructions to the user.
     public void Enter() {
         if(state_renderer == null){
             state_renderer = GetComponentInChildren<SpriteRenderer>();
@@ -70,6 +77,13 @@ public class StateCheckActionPerformed : MonoBehaviour, IState {
         has_responded = false; // prevent recording earlier responses
     }
 
+    // Checks if user has moved the cylinder into the target position.
+    // If cylinder was placed into the target position, a coroutine is
+    // started with a countdown specifies the amount of time the cylinder
+    // has to stay at the target position. If the cylinder is moved out
+    // before, the coroutine is canceled.
+    // Also checks for verbal reaction of the user (given in a certain 
+    // amount of time).
     public void Execute() {
         InformationManager.actual_experiment.HandPositions.Add(hand.position);
 
@@ -116,6 +130,7 @@ public class StateCheckActionPerformed : MonoBehaviour, IState {
         
     }
 
+    // Prepares next state and resets varaibles
     public void Exit() {
         cylinder_renderer.material.color = Color.red; // reset cylinder color
         state_renderer.material.color = Color.blue;

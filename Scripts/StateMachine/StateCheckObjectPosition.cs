@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+// This state checks if the cylinder is in the initial position. 
+
 public class StateCheckObjectPosition : MonoBehaviour, IState {
     
     public bool finished { get; set; } // true if current state is finished and ready to call its Exit() method
@@ -41,6 +43,7 @@ public class StateCheckObjectPosition : MonoBehaviour, IState {
         arrow.ArrowTarget = target;
     }
 
+    // Updates visual state representation and gives instruction to the user.
     public void Enter() {
         if(state_renderer == null) {
             state_renderer = GetComponentInChildren<SpriteRenderer>();
@@ -52,6 +55,9 @@ public class StateCheckObjectPosition : MonoBehaviour, IState {
         text.text = "Stelle den Zylinder in die Startposition";
     }
 
+    // Checks if the cylinder is at the starting position. In this case, a coroutine is
+    // started counting down. If the cylinder is moved before the coroutine is finished
+    // the coroutine is canceled.
     public void Execute() {
         // if object is at start position and the coroutine has not yet been started, start coroutine
         if (starting_position.bounds.Contains(cylinder.position)) {
@@ -68,6 +74,7 @@ public class StateCheckObjectPosition : MonoBehaviour, IState {
         }
     }
 
+    // Reset variables, prepare transit into next state.
     public void Exit() {
         state_renderer.material.color = Color.blue; // inactive color of visual representation of state
         Debug.Log("Exit: StateCheckObjectPosition");

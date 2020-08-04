@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+// This state is the last state to say goodbye and thank the user for his
+// or her participation.
+
 public class StateGoodbye : MonoBehaviour, IState {
 
     public bool finished { get; set; } // true if current state is finished and ready to call its Exit() method
