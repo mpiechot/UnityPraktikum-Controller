@@ -358,6 +358,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &635675080 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7286988006506555442, guid: bf97997d84071904fba9060d8cd9ac16,
+    type: 3}
+  m_PrefabInstance: {fileID: 5342234259922261792}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &914594446 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4962439866448857086, guid: 0059e003e5649fe4ca36ad145df991cc,
@@ -439,6 +445,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 1459760383}
   init: {fileID: 1747874987}
+--- !u!1 &1255993314 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2914190034158694794, guid: bf97997d84071904fba9060d8cd9ac16,
+    type: 3}
+  m_PrefabInstance: {fileID: 5342234259922261792}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1457062027 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1588668034485092782, guid: bf97997d84071904fba9060d8cd9ac16,
@@ -1005,6 +1017,11 @@ PrefabInstance:
       propertyPath: glasses_renderer
       value: 
       objectReference: {fileID: 169199328}
+    - target: {fileID: 1829175966878855075, guid: bf97997d84071904fba9060d8cd9ac16,
+        type: 3}
+      propertyPath: next_state_object
+      value: 
+      objectReference: {fileID: 635675080}
     - target: {fileID: 2793501327731706136, guid: bf97997d84071904fba9060d8cd9ac16,
         type: 3}
       propertyPath: starting_position
@@ -1345,6 +1362,11 @@ PrefabInstance:
       propertyPath: glasses_renderer
       value: 
       objectReference: {fileID: 169199328}
+    - target: {fileID: 8178322717080201032, guid: bf97997d84071904fba9060d8cd9ac16,
+        type: 3}
+      propertyPath: next_state_object
+      value: 
+      objectReference: {fileID: 1255993314}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf97997d84071904fba9060d8cd9ac16, type: 3}
 --- !u!1001 &7558998257266855813
