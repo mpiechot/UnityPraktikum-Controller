@@ -74,14 +74,15 @@
 - Lichtreiz auch am Cylinder rechts und links anbringen statt Farbe der StartArea zu ändern?
 
 
-## Vortrag
+## Vortrag 14.8.2020 12Uhr
 * Brainstorming für die Gliederung:
+      > Worum geht das Experiment, Warum macht man das Experiment und Was unser Part in dem Experiment ist. (1 Folie)
       > Aufgabenstellung (also was Johannes am Anfang in seiner Präsentation gezeigt hat)
+      > Technische Details: Unity verwendet, warum Unity verwendet, andere Hardware (MotionCapture Schnittstelle, Speechrecognition)
       > Umsetzung mit StateMachine (Interface IState, Controller, einzelne States)
         > Was ist eine StateMachine?
         > Code vom Interface (Wie ist ein State aufgebaut?)
         > Schaubild Statemachine
-      > ... (<-- Das ist Johannes Part)
       > Demonstration
       > Schwierigkeiten/Probleme und deren Lösungen
-      > Fazit
+      > Fazit (+ Ausblick mit Nice-To-Have Features)
