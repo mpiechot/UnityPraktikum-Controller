@@ -86,3 +86,7 @@
       > Demonstration
       > Schwierigkeiten/Probleme und deren Lösungen
       > Fazit (+ Ausblick mit Nice-To-Have Features)
+
+### Bericht
+- Abstrakt für den Bericht erstellen
+- Anfang/Mitte September Johannes Bericht für Feedback schicken
