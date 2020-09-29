@@ -26,6 +26,8 @@ public class StateCheckObjectPosition : MonoBehaviour, IState {
     public GameObject edgePrefab;
     private SpriteRenderer state_renderer;
 
+    public float epsilon = 10; // valid range (+/- epsilon) for rotation of cylinder to reduce the noise of the measurement device
+
 
     void Awake() {
         // initiates edges
@@ -61,7 +63,9 @@ public class StateCheckObjectPosition : MonoBehaviour, IState {
     public void Execute() {
         // if object is at start position and the coroutine has not yet been started, start coroutine
         if (starting_position.bounds.Contains(cylinder.position)) {
-            if (!coroutine_running) {
+            if (Mathf.Abs(180 - cylinder.transform.rotation.eulerAngles.z) <= epsilon) {
+                text.text = "Drehe den Zylinder um 180 Grad!";
+            } else if (!coroutine_running) {
                 coroutine = StartCoroutine(CheckPositionOverTime(duration));
             }
         // if object is not at start position and the coroutine is already running, stop coroutine and give user new instructions
